@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <div>
+        <app-navbar></app-navbar> <!-- El navbar ahora ocupa el 100% de la pantalla -->
+        <router-outlet></router-outlet> <!-- El contenido dinámico va aquí -->
+        <div *ngIf="isMaps('maps')">
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

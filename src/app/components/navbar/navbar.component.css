@@ -1,0 +1,24 @@
+/* Aseguramos que el navbar tiene el fondo naranja */
+.bg-orange {
+    background-color: orange !important;
+  }
+  
+  /* Alineamos el título a la izquierda */
+  .navbar-brand {
+    margin-right: auto;
+  }
+  
+  /* Alineamos las opciones del navbar a la derecha */
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  /* Aseguramos que el texto de los links sea visible sobre el fondo */
+  .navbar-light .navbar-nav .nav-link {
+    color: black; /* Puedes ajustar el color */
+  }
+  
+  .navbar-light .navbar-brand {
+    color: black; /* Puedes ajustar el color */
+  }
+  

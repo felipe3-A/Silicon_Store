@@ -1,0 +1,24 @@
+.icono-accion {
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+  
+  .icono-accion:hover {
+    transform: scale(1.2);
+  }
+  
+  @media (max-width: 768px) {
+    .table {
+      font-size: 0.9rem;
+    }
+  
+    .icono-accion {
+      font-size: 1rem;
+    }
+  
+    .form-control {
+      font-size: 0.85rem;
+    }
+  }
+  

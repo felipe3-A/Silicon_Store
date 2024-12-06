@@ -1,0 +1,111 @@
+<!-- Carrusel de imágenes -->
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://exitocol.vtexassets.com/assets/vtex.file-manager-graphql/images/15797789-62bc-4cf3-a552-29a567adf18f___e06e2cd08a181b0311f9fa83d4d5d2fc.jpg" class="d-block w-100" alt="Imagen 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://exitocol.vtexassets.com/assets/vtex.file-manager-graphql/images/82ace2f4-5bb4-4f68-bbc5-13fe2124f0bd___155997bd5cad4c213d5201618b5350e4.jpg" class="d-block w-100" alt="Imagen 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://exitocol.vtexassets.com/assets/vtex.file-manager-graphql/images/99eb73d3-00dd-4edd-978c-5e90810d8084___59d6c27542226fb0a00901c881e2e364.jpg" class="d-block w-100" alt="Imagen 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<div class="container mt-5">
+  <h3 class="mb-4">¿Qué buscas?</h3>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col" *ngFor="let categoria of categorias">
+      <div class="card h-100 shadow-sm border-0 hover-card">
+        <img [src]="categoria.imagen" class="card-img-top" alt="{{categoria.titulo}}">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{categoria.titulo}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contenedor de tarjetas de productos -->
+<div class="row product-row">
+  <div class="col-md-3" *ngFor="let producto of productos">
+    <div class="card mb-4">
+      <img [src]="producto.imagen" class="card-img-top" alt="Imagen del producto" style="height: 200px; object-fit: cover;">
+      <div class="card-body">
+        <h5 class="card-title" style="font-weight: bold;">{{ producto.nombre }}</h5>
+        <p class="card-text">{{ producto.descripcion }}</p>
+      </div>
+      <div class="card-footer text-end">
+        <span>${{ producto.precio }}</span>
+
+        <!-- Contenedor de iconos interactivos -->
+        <div class="d-flex justify-content-between mt-3">
+          <!-- Icono para agregar al carrito -->
+          <i class="bi bi-cart-plus icono" (click)="agregarAlCarrito(producto)"></i>
+
+          <!-- Icono para ver más información -->
+          <i class="bi bi-info-circle icono" (click)="verMasInformacion(producto)"></i>
+
+          <!-- Icono para favoritos -->
+          <i class="bi bi-heart icono" (click)="agregarAFavoritos(producto)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container mt-5">
+  <!-- Recuadro de servicios -->
+  <div class="card border-warning shadow-lg">
+    <div class="card-body">
+      <h5 class="card-title text-center text-warning mb-4">Conoce Nuestros Servicios</h5>
+
+      <!-- Fila de servicios -->
+      <div class="row text-center">
+        <!-- Servicio: Mantenimiento -->
+        <div class="col-md-3">
+          <div class="service-icon">
+            <i class="bi bi-tools" style="font-size: 3rem; color: orange;"></i>
+          </div>
+          <p class="mt-2" style="color: #ff6f00;">Mantenimiento</p>
+        </div>
+
+        <!-- Servicio: Envío Gratis -->
+        <div class="col-md-3">
+          <div class="service-icon">
+            <i class="bi bi-truck" style="font-size: 3rem; color: orange;"></i>
+          </div>
+          <p class="mt-2" style="color: #ff6f00;">Envío Gratis</p>
+        </div>
+
+        <!-- Servicio: Calidad Alta -->
+        <div class="col-md-3">
+          <div class="service-icon">
+            <i class="bi bi-star" style="font-size: 3rem; color: orange;"></i>
+          </div>
+          <p class="mt-2" style="color: #ff6f00;">Calidad Alta</p>
+        </div>
+
+        <!-- Servicio: Compra Segura -->
+        <div class="col-md-3">
+          <div class="service-icon">
+            <i class="bi bi-shield-lock" style="font-size: 3rem; color: orange;"></i>
+          </div>
+          <p class="mt-2" style="color: #ff6f00;">Compra Segura</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-orange">
+  <div class="container-fluid">
+    <!-- Título alineado a la izquierda -->
+    <a class="navbar-brand" href="#">Mi Tienda</a>
+
+    <!-- Botón para el menú móvil -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMobileMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Opciones del navbar alineadas a la derecha -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart">
+            <i class="material-icons">shopping_cart</i> Carrito
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/oferts">
+            <i class="material-icons">local_offer</i> Ofertas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/mas">
+            <i class="material-icons">more_horiz</i> Más
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productAdd">
+            <i class="material-icons">user</i> Login
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
