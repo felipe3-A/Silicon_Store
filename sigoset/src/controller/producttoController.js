@@ -28,21 +28,21 @@ controller.listarProductos = async (req, res, next) => {
 // Crear producto
 controller.crearProducto = async (req, res) => {
   try {
-    const { nombre, descripcion, precio } = req.body;
+    const { nombre, descripcion, precio,imagen } = req.body;
     
     // Verifica si el archivo de imagen existe
-    const imagen = req.file ? req.file.filename : null; // Nombre de la imagen (filename)
+   //  const imagen = req.file ? req.file.filename : null; // Nombre de la imagen (filename)
 
-    if (!imagen) {
-      return res.status(400).json({ message: "Se requiere una imagen para el producto." });
-    }
+   //  if (!imagen) {
+   //    return res.status(400).json({ message: "Se requiere una imagen para el producto." });
+    // }
 
     // Guarda la URL completa de la imagen
     const nuevoProducto = { 
       nombre, 
       descripcion, 
       precio, 
-      imagen: `http://localhost:3000/uploads/${imagen}` // URL completa de la imagen
+      imagen, // `http://localhost:3000/uploads/${imagen}` // URL completa de la imagen
     };
 
     const product = await crearProducto(nuevoProducto); // Llamada al servicio

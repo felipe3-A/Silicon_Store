@@ -6,22 +6,22 @@ const path = require('path');
 const fs = require('fs');  // Asegúrate de importar 'fs' para guardar archivos
 
 // Configuración de Multer para las imágenes
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');  // Carpeta donde se almacenan las imágenes
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));  // Nombre único de la imagen con timestamp
-  },
-});
+// const storage = multer.diskStorage({
+  // destination: function (req, file, cb) {
+    // cb(null, 'uploads/');  // Carpeta donde se almacenan las imágenes
+  // },
+  // filename: function (req, file, cb) {
+  //   cb(null, Date.now() + path.extname(file.originalname));  // Nombre único de la imagen con timestamp
+  // },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 // Ruta para listar productos
 router.get('/api/productos', controller.listarProductos);
 
 // Ruta para crear un producto
-router.post('/api/productos', upload.single('imagen'), controller.crearProducto);  // Verifica esta ruta
+router.post('/api/productos', controller.crearProducto);  // Verifica esta ruta
 
   
 
