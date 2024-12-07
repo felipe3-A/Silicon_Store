@@ -17,23 +17,31 @@ const Productos = {
   
   // Crear un producto
   create: function (ProductoData) {
-    const sql = 'INSERT INTO productos (nombre, precio, descripcion, imagen) VALUES (?, ?, ?, ?)';
-    return pool.execute(sql, [ProductoData.nombre, ProductoData.precio, ProductoData.descripcion, ProductoData.imagen]);
+    const sql = 'INSERT INTO productos (nombre, precio, descripcion, imagen,referencia,cantidad,categoria) VALUES (?, ?, ?, ?,?,?,?)';
+    return pool.execute(sql, [ProductoData.nombre, ProductoData.precio, ProductoData.descripcion, ProductoData.imagen, ProductoData.referencia, ProductoData.cantidad, ProductoData.categoria]);
   },
   
   // Actualizar un producto por su ID
   update: function (id, ProductoData) {
     const precio = parseFloat(ProductoData.precio);
+    const cantidad= parseFloat(ProductoData.cantidad);
     if (isNaN(precio)) {
       throw new Error('El precio no es un número válido');
     }
-  
-    const sql = 'UPDATE productos SET nombre= ?, precio= ?, descripcion= ?, imagen= ? WHERE id= ?';
+
+    if (isNaN(cantidad)) {
+      throw new Error('La cantidad no es un número válido');
+    }
+    
+    const sql = 'UPDATE productos SET nombre= ?, precio= ?, descripcion= ?, imagen= ?,categoria=?,referencia=?,cantidad=?, WHERE id= ?';
     return pool.execute(sql, [
       ProductoData.nombre,
       precio,
       ProductoData.descripcion,
       ProductoData.imagen,
+      ProductoData.categoria,
+      ProductoData.referencia,
+      cantidad,
       id
     ]);
   },

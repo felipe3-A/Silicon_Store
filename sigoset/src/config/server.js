@@ -14,11 +14,9 @@ appSigoSet.use(express.json());
 appSigoSet.use(morgan("dev"));
 
 
-const usuarioRoutes = require('../routes/usuarioRoutes')
 const productosRoutes = require("../routes/productoRoutes"); // Asegúrate de que exista y sea correcto
 
 
-appSigoSet.use(usuarioRoutes);  
 appSigoSet.use(productosRoutes)
 
 
