@@ -72,19 +72,21 @@
             <!-- Ver más -->
             <i 
               class="bi bi-eye text-primary icono-accion" 
-              (click)="verMasInformacion(producto)" 
+              (click)="abrirModalVer(producto)" 
               title="Ver más"></i>
 
             <!-- Editar -->
             <i 
-              class="bi bi-pencil-square text-warning icono-accion" 
-              (click)="editarProducto(producto)" 
-              title="Editar"></i>
+            class="bi bi-pencil-square text-warning icono-accion" 
+            (click)="abrirModalEditar(producto)" 
+            title="Editar">
+          </i>
+          
 
             <!-- Eliminar -->
             <i 
               class="bi bi-trash text-danger icono-accion" 
-              (click)="eliminarProducto(producto)" 
+              (click)="eliminarProducto(producto.id)" 
               title="Eliminar"></i>
           </div>
         </td>
@@ -92,3 +94,15 @@
     </tbody>
   </table>
 </div>
+<app-see-product 
+  [productoSeleccionado]="productoSeleccionado" 
+  *ngIf="showModal" 
+  (close)="showModal = false">
+</app-see-product>
+
+
+<edit-product
+[productoSeleccionado]="productoSeleccionado"
+*ngIf="showModal1" 
+(close)="showModal1=false">
+</edit-product>

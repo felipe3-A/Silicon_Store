@@ -1,0 +1,9 @@
+<div class="custom-modal-overlay" >
+  <div class="custom-modal-content">
+    <h2>Detalles del Producto</h2>
+    <p><strong>Nombre:</strong> {{ productoSeleccionado.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ productoSeleccionado.descripcion }}</p>
+    <p><strong>Precio:</strong> ${{ productoSeleccionado.precio }}</p>
+    <button (click)="cerrarModal()" class="btn-close-modal">Cerrar</button>
+  </div>
+</div>

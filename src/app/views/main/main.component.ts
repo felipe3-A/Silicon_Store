@@ -1,8 +1,10 @@
+import { CartComponent } from './../cart/cart.component';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'app/services/product.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CartServiceService } from 'app/services/cart-service.service';
 
 @Component({
   selector: 'main',
@@ -11,6 +13,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class MainComponent implements OnInit {
   productos = [];
+
+  //Aqui se guardaran los productos
+  carrito: any[] = [];
+
 
   productoForm: FormGroup;
   ProductoData = {
@@ -41,7 +47,8 @@ export class MainComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService, 
-    private router: Router
+    private router: Router,
+    private cartsService: CartServiceService
   ) { }
 
   ngOnInit(): void {
@@ -57,9 +64,29 @@ export class MainComponent implements OnInit {
   }
 
   agregarAlCarrito(producto: any): void {
-    console.log('Producto agregado al carrito:', producto);
-    // Lógica para agregar el producto al carrito
+    this.cartsService.agregarProducto(producto);
+    const Toast=Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+      
+     
+    }
+    
+  );
+  Toast.fire({
+    icon:'success',
+    title:'Producto agregado al carrito'
+  })
+   
   }
+
 
   verMasInformacion(producto: any): void {
     console.log('Ver más información de:', producto);

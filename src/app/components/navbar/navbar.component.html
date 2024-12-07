@@ -12,11 +12,11 @@
     <!-- Opciones del navbar alineadas a la derecha -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/cart">
-            <i class="material-icons">shopping_cart</i> Carrito
-          </a>
-        </li>
+        <a class="nav-link" routerLink="/cart">
+          <i class="material-icons">shopping_cart</i>
+          <span class="badge bg-danger">{{ cart.length }}</span>
+        </a>
+        
         <li class="nav-item">
           <a class="nav-link" routerLink="/oferts">
             <i class="material-icons">local_offer</i> Ofertas

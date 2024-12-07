@@ -11,6 +11,8 @@ import { MainComponent } from './views/main/main.component';
 import { CartComponent } from './views/cart/cart.component';
 import { AdminProductComponent } from './views/admin-product/admin-product.component';
 import { OfertsComponent } from './views/oferts/oferts.component';
+import { EditProductComponent } from './modal/edit-product/edit-product.component';
+import { SeeProductComponent } from './modal/see-product/see-product.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { OfertsComponent } from './views/oferts/oferts.component';
     CartComponent,
     AdminProductComponent,
     OfertsComponent,
+    EditProductComponent,
+    SeeProductComponent,
 
   ],
   providers: [],

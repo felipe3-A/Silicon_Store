@@ -1,40 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CartServiceService } from 'app/services/cart-service.service';
 @Component({
   selector: 'cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  productosRecomendados = [
-    {
-      nombre: 'Producto 1',
-      descripcion: 'Descripción breve del producto 1',
-      precio: 29.99,
-      imagen: 'https://via.placeholder.com/150'
-    },
-    {
-      nombre: 'Producto 2',
-      descripcion: 'Descripción breve del producto 2',
-      precio: 39.99,
-      imagen: 'https://via.placeholder.com/150'
-    },
-    {
-      nombre: 'Producto 3',
-      descripcion: 'Descripción breve del producto 3',
-      precio: 49.99,
-      imagen: 'https://via.placeholder.com/150'
-    },
-    {
-      nombre: 'Producto 4',
-      descripcion: 'Descripción breve del producto 4',
-      precio: 59.99,
-      imagen: 'https://via.placeholder.com/150'
-    }
-  ];
-  constructor() { }
+  carrito: any[] = [];
+
+
+ 
+  constructor(private cartService:CartServiceService) { }
 
   ngOnInit(): void {
+    this.carrito = this.cartService.obtenerCarrito();
+
   }
+  calcularTotal():number{
+    if (!this.carrito || this.carrito.length === 0) {
+      return 0; // Si el carrito está vacío, retorna 0
+    }
+    return this.carrito.reduce((total, producto) => total + (producto.precio || 0), 0);
+  }  
 
 }

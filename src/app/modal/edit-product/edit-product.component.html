@@ -1,0 +1,41 @@
+<div class="custom-modal-overlay">
+  <div class="custom-modal-content">
+    <div class="modal-header d-flex justify-content-center align-items-center">
+      <h5 class="modal-title" id="editarModalLabel">Editar Producto: {{ productoSeleccionado?.nombre }}</h5>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="nombreProducto">Nombre Producto:</label>
+            <input type="text" class="form-control" id="nombreProducto" [(ngModel)]="productoSeleccionado.nombre">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="precioProducto">Precio:</label>
+            <input type="number" class="form-control" id="precioProducto" [(ngModel)]="productoSeleccionado.precio">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="descripcionProducto">Descripción:</label>
+            <input type="text" class="form-control" id="descripcionProducto" [(ngModel)]="productoSeleccionado.descripcion">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="imagenProducto">Imagen:</label>
+            <input type="text" class="form-control" id="imagenProducto" [(ngModel)]="productoSeleccionado.imagen">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center align-items-center">
+      <button type="button" class="btn btn-primary btn-animate" (click)="actuProducto()">Actualizar</button>
+      <button type="button" class="btn btn-secondary btn-animate" (click)="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+</div>

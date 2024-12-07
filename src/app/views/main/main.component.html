@@ -38,30 +38,48 @@
 <!-- Contenedor de tarjetas de productos -->
 <div class="row product-row">
   <div class="col-md-3" *ngFor="let producto of productos">
-    <div class="card mb-4">
-      <img [src]="producto.imagen" class="card-img-top" alt="Imagen del producto" style="height: 200px; object-fit: cover;">
+    <div class="card hover-card mb-4">
+      <!-- Imagen del producto -->
+      <img
+        [src]="producto.imagen"
+        class="card-img-top"
+        alt="Imagen del producto"
+      />
+
+      <!-- Contenido de la tarjeta -->
       <div class="card-body">
-        <h5 class="card-title" style="font-weight: bold;">{{ producto.nombre }}</h5>
-        <p class="card-text">{{ producto.descripcion }}</p>
+        <h5 class="card-title">{{ producto.nombre }}</h5>
+        <p class="card-text text-muted">
+          {{ producto.descripcion }}
+        </p>
       </div>
-      <div class="card-footer text-end">
-        <span>${{ producto.precio }}</span>
 
-        <!-- Contenedor de iconos interactivos -->
-        <div class="d-flex justify-content-between mt-3">
-          <!-- Icono para agregar al carrito -->
-          <i class="bi bi-cart-plus icono" (click)="agregarAlCarrito(producto)"></i>
-
-          <!-- Icono para ver más información -->
-          <i class="bi bi-info-circle icono" (click)="verMasInformacion(producto)"></i>
-
-          <!-- Icono para favoritos -->
-          <i class="bi bi-heart icono" (click)="agregarAFavoritos(producto)"></i>
+      <!-- Pie de la tarjeta con el precio e iconos -->
+      <div class="card-footer">
+        <span class="precio">${{ producto.precio }}</span>
+        <div class="d-flex justify-content-around icon-container">
+          <!-- Iconos interactivos -->
+          <i
+            class="bi bi-cart-plus icono"
+            (click)="agregarAlCarrito(producto)"
+            title="Añadir al carrito"
+          ></i>
+          <i
+            class="bi bi-info-circle icono"
+            (click)="verMasInformacion(producto)"
+            title="Más información"
+          ></i>
+          <i
+            class="bi bi-heart icono"
+            (click)="agregarAFavoritos(producto)"
+            title="Añadir a favoritos"
+          ></i>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 
 

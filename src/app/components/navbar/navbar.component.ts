@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { CartServiceService } from 'app/services/cart-service.service'; // Asegúrate de importar tu servicio
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +12,14 @@ export class NavbarComponent implements OnInit {
   location: Location;
   mobile_menu_visible: any = 0;
   private toggleButton: any;
+  cart: any[] = []; // Propiedad para almacenar los datos del carrito
 
-  constructor(location: Location, private element: ElementRef, private router: Router) {
+  constructor(
+    location: Location,
+    private element: ElementRef,
+    private router: Router,
+    private cartService: CartServiceService // Inyecta el servicio del carrito
+  ) {
     this.location = location;
   }
 
@@ -22,6 +29,9 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       this.closeMobileMenu();
     });
+
+    // Inicializar el carrito
+    this.cart = this.cartService.obtenerCarrito();
   }
 
   closeMobileMenu() {
