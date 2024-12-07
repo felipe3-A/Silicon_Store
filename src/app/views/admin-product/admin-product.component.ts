@@ -15,7 +15,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class AdminProductComponent implements OnInit {
   productos = [];
   productoForm: FormGroup;
-  ProductoData: any = { nombre: '', descripcion: '', precio: '', imagen: null };
+  ProductoData: any = { nombre: '', descripcion: '', precio: '', imagen: null, categoria:'',referencia:'',cantidad:'' };
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
 
   showModal: boolean = false;  // Modal de ver
@@ -37,6 +37,9 @@ export class AdminProductComponent implements OnInit {
       nombre: ['', [Validators.required]],
       descripcion: [''],
       imagen: [''],
+      cantidad:[],
+      categoria:[],
+      referencia:[],
       precio: ['', [Validators.required, Validators.min(0), Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
     });
 
