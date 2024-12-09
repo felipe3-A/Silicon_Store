@@ -21,4 +21,14 @@
       font-size: 0.85rem;
     }
   }
+  select.form-control {
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+  }
+  
+  select.form-control:focus {
+    border-color: #ff8800;
+    box-shadow: 0 0 0 0.2rem rgba(255, 136, 0, 0.25);
+  }
   

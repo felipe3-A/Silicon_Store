@@ -1,9 +1,26 @@
-<div class="custom-modal-overlay" >
+<div class="custom-modal-overlay">
   <div class="custom-modal-content">
     <h2>Detalles del Producto</h2>
-    <p><strong>Nombre:</strong> {{ productoSeleccionado.nombre }}</p>
-    <p><strong>Descripción:</strong> {{ productoSeleccionado.descripcion }}</p>
-    <p><strong>Precio:</strong> ${{ productoSeleccionado.precio }}</p>
+    <div class="modal-body">
+      <div class="left-column">
+        <p><strong>Nombre:</strong> {{ productoSeleccionado.nombre }}</p>
+        <p><strong>Descripción:</strong> {{ productoSeleccionado.descripcion }}</p>
+        <p><strong>Precio:</strong> {{ productoSeleccionado.precio | currency }}</p>
+        <p><strong>Categoría:</strong> {{ productoSeleccionado.categoria }}</p>
+        <p><strong>Cantidad:</strong> {{ productoSeleccionado.cantidad }}</p>
+        <p><strong>Garantia:</strong> {{ productoSeleccionado.garantia }}</p>
+        <p><strong>Marca:</strong> {{ productoSeleccionado.marca }}</p>
+        <p><strong>Envio Gratis:</strong> {{ productoSeleccionado.envio }}</p>
+        <p><strong>Proovedor:</strong> {{ productoSeleccionado.proovedor }}</p>
+        <p><strong>Fecha de Recepción:</strong> {{ productoSeleccionado.recepcion }}</p>
+
+        
+      </div>
+      <div class="right-column">
+        <img [src]="productoSeleccionado.imagen" alt="Imagen del Producto" class="product-image">
+      </div>
+    </div>
+
     <button (click)="cerrarModal()" class="btn-close-modal">Cerrar</button>
   </div>
 </div>

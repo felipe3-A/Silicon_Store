@@ -2,29 +2,135 @@
 <div class="container my-4">
   <form [formGroup]="productoForm" (ngSubmit)="crearProducto()" class="row g-3">
 
+    <!-- Referencia -->
     <div class="col-md-3">
       <input class="form-control" formControlName="referencia" placeholder="Referencia" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('referencia')?.invalid && productoForm.get('referencia')?.touched"
+        class="text-warning">
+        Llena este campo
+      </div>
     </div>
+
+    <!-- Envío -->
+<div class="col-md-3">
+  <input
+    class="form-control"
+    formControlName="envio"
+    placeholder="Envío"
+    type="text"
+  />
+  <div
+    *ngIf="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched"
+    class="text-warning"
+  >
+    Este campo es obligatorio
+  </div>
+</div>
+
+    <!-- Garantía -->
     <div class="col-md-3">
-      <input class="form-control" formControlName="nombre" placeholder="Nombre del producto" />
+      <input class="form-control" formControlName="garantia" placeholder="Garantía" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('garantia')?.invalid && productoForm.get('garantia')?.touched" class="text-warning">
+        Llena este campo
+      </div>
     </div>
+
+    <!-- Marca -->
     <div class="col-md-3">
-      <input class="form-control" formControlName="descripcion" placeholder="Descripción" />
+      <input class="form-control" formControlName="marca" placeholder="Marca" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('marca')?.invalid && productoForm.get('marca')?.touched" class="text-warning">
+        Llena este campo
+      </div>
     </div>
-    <div class="col-md-3">
-      <input class="form-control" formControlName="categoria" placeholder="Categoria" />
-    </div>
+
+    <!-- Cantidad -->
     <div class="col-md-3">
       <input class="form-control" type="number" formControlName="cantidad" placeholder="Cantidad" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched" class="text-warning">
+        Llena este campo
+      </div>
     </div>
+
+
+    <!-- Proveedor -->
+    <div class="col-md-3">
+      <input class="form-control" formControlName="proovedor" placeholder="Proveedor" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('proovedor')?.invalid && productoForm.get('proovedor')?.touched"
+        class="text-warning">
+        Llena este campo
+      </div>
+    </div>
+
+    <!-- Fecha de recepción -->
+    <div class="col-md-3">
+      <input class="form-control" type="date" formControlName="recepcion" placeholder="Fecha de recepción" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('recepcion')?.invalid && productoForm.get('recepcion')?.touched"
+        class="text-warning">
+        Llena este campo
+      </div>
+    </div>
+
+    <!-- Nombre del producto -->
+    <div class="col-md-3">
+      <input class="form-control" formControlName="nombre" placeholder="Nombre del producto" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="text-warning">
+        Llena este campo
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="col-md-3">
+      <input class="form-control" formControlName="descripcion" placeholder="Descripción" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
+        class="text-warning">
+        Llena este campo
+      </div>
+    </div>
+
+    <!-- Categoría -->
+    <div class="col-md-3">
+      <label for="categoria" class="form-label">Categoría</label>
+      <select class="form-control" formControlName="categoria" id="categoria">
+        <option value="" disabled selected>Seleccione una categoría</option>
+        <option value="computadoras">Computadoras</option>
+        <option value="televisores">Televisores</option>
+        <option value="electrodomesticos">Electrodomésticos</option>
+        <option value="equipos-reparacion">Equipos de Reparación</option>
+      </select>
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
+        class="text-warning">
+        Llena este campo
+      </div>
+    </div>
+
+    <!-- Precio -->
     <div class="col-md-2">
       <input class="form-control" formControlName="precio" type="number" placeholder="Precio" step="0.01"
         (blur)="formatDecimal('precio')" />
-
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="text-warning">
+        Llena este campo
+      </div>
     </div>
+
+    <!-- Imagen -->
     <div class="col-md-3">
       <input class="form-control" formControlName="imagen" type="file" placeholder="URL de la Imagen" />
+      <!-- Mensaje de advertencia -->
+      <div *ngIf="productoForm.get('imagen')?.invalid && productoForm.get('imagen')?.touched" class="text-warning">
+        Llena este campo
+      </div>
     </div>
+
     <div class="col-md-1 d-grid">
       <button type="submit" class="btn btn-primary">
         Crear

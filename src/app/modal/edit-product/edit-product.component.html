@@ -31,6 +31,61 @@
             <input type="text" class="form-control" id="imagenProducto" [(ngModel)]="productoSeleccionado.imagen">
           </div>
         </div>
+
+        <div class="col-6">
+          <label for="categoria" class="form-label">Categoría</label>
+          <select class="form-control" [(ngModel)]="productoSeleccionado.categoria" id="categoria">
+            <option value="" disabled>Seleccione una categoría</option>
+            <option value="computadoras">Computadoras</option>
+            <option value="televisores">Televisores</option>
+            <option value="electrodomesticos">Electrodomésticos</option>
+            <option value="equipos-reparacion">Equipos de Reparación</option>
+          </select>
+        </div>
+        
+        <div class="col-6">
+          <div class="form-group">
+            <label for="referenciaProducto">Referencia:</label>
+            <input type="text" class="form-control" id="referenciaProducto" [(ngModel)]="productoSeleccionado.referencia">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="cantidadProducto">Cantidad:</label>
+            <input type="number" class="form-control" id="cantidadProducto" [(ngModel)]="productoSeleccionado.cantidad">
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="referenciaProducto">Garantia:</label>
+            <input type="text" class="form-control" id="referenciaProducto" [(ngModel)]="productoSeleccionado.garantia">
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="referenciaProducto">Marca:</label>
+            <input type="text" class="form-control" id="referenciaProducto" [(ngModel)]="productoSeleccionado.marca">
+          </div>
+        </div>
+        
+        <div class="col-6">
+          <div class="form-group">
+            <label for="referenciaProducto">Envio Gratis:</label>
+            <input type="text" class="form-control" id="referenciaProducto" [(ngModel)]="productoSeleccionado.envio">
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="referenciaProducto">Proovedor:</label>
+            <input type="text" class="form-control" id="referenciaProducto" [(ngModel)]="productoSeleccionado.proovedor">
+          </div>
+        </div>
+
+       
+
       </div>
     </div>
     <div class="modal-footer d-flex justify-content-center align-items-center">

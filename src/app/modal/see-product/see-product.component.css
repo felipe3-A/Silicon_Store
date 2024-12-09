@@ -1,80 +1,86 @@
-/* Estilo para la superposición del modal */
 .custom-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Oscurece el fondo */
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro con transparencia */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050; /* Asegura que el modal se muestre sobre otros elementos */
-  animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+  opacity: 0; /* Inicia invisible */
+  visibility: hidden; /* Inicia oculto */
+  animation: fadeIn 0.5s ease-out forwards; /* Animación de aparición */
 }
 
-/* Animación de aparición del modal */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Estilo del contenido del modal */
 .custom-modal-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra más suave */
-  width: 90%;
-  max-width: 600px;
-  text-align: left; /* Alineación de texto */
-  font-family: 'Arial', sans-serif;
-  animation: slideIn 0.5s ease-out;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%; /* Ajusta el tamaño del modal */
+  max-width: 800px; /* Ajusta el tamaño máximo */
+  display: flex;
+  flex-direction: column;
+  opacity: 0; /* Inicia invisible */
+  transform: translateY(-20px); /* Inicia un poco arriba */
+  animation: slideIn 0.5s ease-out forwards 0.2s; /* Desplazamiento hacia abajo */
 }
 
-/* Animación de deslizamiento del modal */
-@keyframes slideIn {
-  from {
-    transform: translateY(-50px);
+@keyframes fadeIn {
+  0% {
     opacity: 0;
+    visibility: hidden;
   }
-  to {
-    transform: translateY(0);
+  100% {
     opacity: 1;
+    visibility: visible;
   }
 }
 
-/* Estilo del encabezado */
-.custom-modal-content h2 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Estilo de los párrafos dentro del modal */
-.custom-modal-content p {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 10px;
+.modal-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Botón de cierre con estilo moderno */
+.left-column {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 .btn-close-modal {
-  background-color: #FF5C5C;
+  background-color: #ff8800;
   color: white;
+  padding: 10px;
   border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 16px;
 }
 
-/* Efecto de hover en el botón */
 .btn-close-modal:hover {
-  background-color: #FF4040;
+  background-color: #ff6600;
 }
