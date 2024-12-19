@@ -1,0 +1,15 @@
+.card {
+  border-radius: 15px;
+}
+
+.input-group-text {
+  border-radius: 50px 0 0 50px;
+}
+
+.form-control {
+  border-radius: 0 50px 50px 0;
+}
+
+button {
+  border-radius: 50px;
+}

@@ -1,0 +1,133 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3>Formulario de Compra</h3>
+          </div>
+          <div class="card-body">
+            <!-- Paso 1: Correo electrónico -->
+            <form *ngIf="currentStep === 1" [formGroup]="step1Form" (ngSubmit)="nextStep()">
+              <div class="form-group mb-3">
+                <label for="email">Correo electrónico</label>
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Ingrese su correo electrónico"
+                  [ngClass]="{'is-invalid': step1Form.get('email')?.invalid && step1Form.get('email')?.touched}"
+                />
+                <div *ngIf="step1Form.get('email')?.invalid && step1Form.get('email')?.touched" class="invalid-feedback">
+                  Por favor, ingrese un correo válido.
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Siguiente</button>
+            </form>
+  
+            <!-- Paso 2: Datos personales -->
+            <form *ngIf="currentStep === 2" [formGroup]="step2Form" (ngSubmit)="nextStep()">
+              <div class="form-group mb-3">
+                <label for="nombre">Nombre</label>
+                <input
+                  id="nombre"
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre"
+                  placeholder="Ingrese su nombre"
+                  [ngClass]="{'is-invalid': step2Form.get('nombre')?.invalid && step2Form.get('nombre')?.touched}"
+                />
+                <div *ngIf="step2Form.get('nombre')?.invalid && step2Form.get('nombre')?.touched" class="invalid-feedback">
+                  El nombre es requerido.
+                </div>
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="identificacion">Identificación</label>
+                <input
+                  id="identificacion"
+                  type="text"
+                  class="form-control"
+                  formControlName="identificacion"
+                  placeholder="Ingrese su número de identificación"
+                  [ngClass]="{'is-invalid': step2Form.get('identificacion')?.invalid && step2Form.get('identificacion')?.touched}"
+                />
+                <div *ngIf="step2Form.get('identificacion')?.invalid && step2Form.get('identificacion')?.touched" class="invalid-feedback">
+                  La identificación es requerida.
+                </div>
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="telefono">Teléfono</label>
+                <input
+                  id="telefono"
+                  type="text"
+                  class="form-control"
+                  formControlName="telefono"
+                  placeholder="Ingrese su teléfono"
+                  [ngClass]="{'is-invalid': step2Form.get('telefono')?.invalid && step2Form.get('telefono')?.touched}"
+                />
+                <div *ngIf="step2Form.get('telefono')?.invalid && step2Form.get('telefono')?.touched" class="invalid-feedback">
+                  El teléfono es requerido y debe tener 10 dígitos.
+                </div>
+              </div>
+  
+              <div class="form-group mb-3">
+                <label for="direccion">Dirección</label>
+                <input
+                  id="direccion"
+                  type="text"
+                  class="form-control"
+                  formControlName="direccion"
+                  placeholder="Ingrese su dirección"
+                  [ngClass]="{'is-invalid': step2Form.get('direccion')?.invalid && step2Form.get('direccion')?.touched}"
+                />
+                <div *ngIf="step2Form.get('direccion')?.invalid && step2Form.get('direccion')?.touched" class="invalid-feedback">
+                  La dirección es requerida.
+                </div>
+              </div>
+  
+              <button type="submit" class="btn btn-primary w-100">Siguiente</button>
+            </form>
+  
+            <!-- Paso 3: Método de pago -->
+            <form *ngIf="currentStep === 3" [formGroup]="step3Form" (ngSubmit)="nextStep()">
+              <div class="form-group mb-3">
+                <label for="pago">Método de pago</label>
+                <select
+                  id="pago"
+                  class="form-control"
+                  formControlName="pago"
+                  [ngClass]="{'is-invalid': step3Form.get('pago')?.invalid && step3Form.get('pago')?.touched}"
+                >
+                  <option value="" disabled selected>Seleccione un método de pago</option>
+                  <option *ngFor="let metodo of metodosDePago" [value]="metodo.nombre">{{ metodo.nombre }}</option>
+                </select>
+                <div *ngIf="step3Form.get('pago')?.invalid && step3Form.get('pago')?.touched" class="invalid-feedback">
+                  El método de pago es requerido.
+                </div>
+              </div>
+  
+              <button type="submit" class="btn btn-primary w-100">Siguiente</button>
+            </form>
+  
+            <!-- Paso 4: Confirmación y resumen -->
+            <form *ngIf="currentStep === 4" [formGroup]="step4Form" (ngSubmit)="submitForms()">
+              <div class="form-group mb-3">
+                <label for="metodoPago">Método de pago seleccionado</label>
+                <input
+                  id="metodoPago"
+                  type="text"
+                  class="form-control"
+                  [value]="metodoSeleccionado?.nombre || ''"
+                  readonly
+                />
+              </div>
+              <button type="submit" class="btn btn-success w-100">Finalizar Compra</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

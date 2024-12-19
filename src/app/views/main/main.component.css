@@ -1,84 +1,130 @@
-/* Ajuste general de las tarjetas */
+/* Estilos generales */
+.carousel-inner img {
+  border-radius: 10px;
+  object-fit: cover;
+  height: 400px; /* Ajusta según tu diseño */
+}
+
+/* Estilos generales */
+.icono-naranja {
+  font-size: 1.8rem; /* Tamaño de los iconos */
+  color: 04B2D9; /* Cambiar el color a naranja */
+  cursor: pointer; /* Muestra el cursor como puntero al pasar sobre los iconos */
+  transition: color 0.3s ease; /* Transición suave */
+}
+
+.icono-naranja:hover {
+  color: #05819c; /* Cambia el color al pasar el mouse */
+}
+
+
+
+
+/* Estilos de las tarjetas */
 .card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
+  border: none;
+  border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ocupa el contenedor */
+  height: 350px; /* Altura fija */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden; /* Evita desbordes visuales */
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Imagen dentro de las tarjetas */
 .card-img-top {
   object-fit: cover;
-  height: 180px;
-  border-bottom: 1px solid #ddd;
+  width: 100%;
+  height: 50%; /* Ocupa la mitad de la tarjeta */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
-/* Estilo del cuerpo de las tarjetas */
 .card-body {
-  padding: 15px;
+  flex-grow: 1;
+  padding: 20px;
   text-align: center;
   background-color: #fff;
 }
 
 .card-title {
-  font-size: 1.25rem;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #04B2D9;
 }
 
-.card-text {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-/* Estilo del pie de las tarjetas */
 .card-footer {
   background-color: #f9f9f9;
-  padding: 10px 15px;
+  padding: 15px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 
 .card-footer .precio {
-  font-size: 1.2rem;
-  color: #ff5722;
+  font-size: 1.4rem;
+  color: #04B2D9;
   font-weight: bold;
-  margin-top: 5px;
 }
 
-/* Contenedor de los iconos */
+/* Línea anaranjada */
+.orange-line {
+  height: 5px;
+  background-color: #04B2D9;
+  width: 100%;
+  margin: auto;
+  border-radius: 2px;
+}
+
+/* Iconos */
 .icon-container {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  gap: 10px;
 }
 
 .icono {
   font-size: 1.5rem;
-  color: #555;
+  color: #04B2D9;
   cursor: pointer;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .icono:hover {
-  transform: scale(1.3) rotate(10deg);
-  color: #ff5722;
+  transform: scale(1.2) rotate(10deg);
+  color: #04B2D9;
 }
 
-/* Fondo del área de productos */
+/* Iconos de servicios */
+.service-icon {
+  font-size: 4rem;
+  color: #04B2D9;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.service-icon:hover {
+  transform: scale(1.1);
+  color: #04B2D9;
+}
+
+/* Texto especial */
+.txt_w {
+  font-weight: bolder;
+  font-size: xx-large;
+  color: #04B2D9;
+}
+
+/* Contenedor de productos */
 .product-row {
-  margin: 20px auto;
+  margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -86,15 +132,211 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .card {
-    height: auto;
+  .carousel-inner img {
+    height: 300px;
   }
 
   .card-img-top {
-    height: 150px;
+    height: 180px;
+  }
+
+  .card-body {
+    padding: 10px;
   }
 
   .icono {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
+
+  .product-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-icon {
+    font-size: 3rem;
+  }
+}
+
+
+/* Estilos para las tarjetas de categorías */
+.category-card {
+  height: 180px; /* Ajusta la altura según lo necesario */
+  width: 150px;  /* Hace la tarjeta cuadrada */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.category-card .service-icon img {
+  width: 70px; /* Tamaño del icono */
+  height: 70px; /* Tamaño del icono */
+  object-fit: contain;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para las tarjetas de productos */
+
+/* Estilo para las tarjetas de productos */
+.product-card {
+  border: none; /* Sin bordes */
+  border-radius: 15px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación al pasar el mouse */
+  display: flex;
+  flex-direction: column; /* Asegura que el contenido esté en columnas */
+  justify-content: space-between; /* Espacia los elementos */
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Aumentar tamaño al pasar el mouse */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Más sombra al hacer hover */
+}
+
+.product-card img {
+  max-height: 200px; /* Tamaño máximo para la imagen */
+  object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+  border-radius: 15px 15px 0 0; /* Redondear esquinas superiores */
+}
+
+.product-card .card-body {
+  text-align: center; /* Centrar contenido */
+  padding: 15px; /* Espaciado interno */
+  flex-grow: 1; /* El cuerpo se ajusta al espacio disponible */
+}
+
+.product-card .card-footer {
+  background: #fff; /* Fondo blanco para el footer */
+  border-top: 1px solid #e0e0e0; /* Línea separadora */
+  border-radius: 0 0 15px 15px; /* Bordes redondeados inferiores */
+  padding: 10px; /* Espaciado */
+}
+
+.product-card .card-title {
+  color: #04B2D9; /* Color del título */
+  font-size: 1.2rem; /* Tamaño del texto */
+  font-weight: bold; /* Negrita */
+  margin-bottom: 10px; /* Separación inferior */
+}
+
+.product-card .card-text {
+  color: #757575; /* Texto gris claro */
+  font-size: 0.9rem; /* Tamaño más pequeño */
+  margin-bottom: 15px; /* Separación inferior */
+}
+
+.product-card .price {
+  color: #757575; /* Precio original en gris */
+  text-decoration: line-through; /* Línea cruzada */
+  margin-right: 10px; /* Separación a la derecha */
+}
+
+.product-card .price-new {
+  color: #04B2D9; /* Precio nuevo en naranja */
+  font-size: 1.2rem; /* Más grande */
+  font-weight: bold; /* Negrita */
+}
+
+
+.card-actions i {
+  font-size: 1.5rem; /* Tamaño de los íconos */
+  color: #6c757d; /* Color inicial */
+  cursor: pointer; /* Cursor de puntero */
+  transition: transform 0.2s, color 0.3s ease; /* Animación suave */
+}
+
+.card-actions i:hover {
+  color: #04B2D9; /* Cambia el color al pasar el mouse */
+  transform: scale(1.2); /* Aumenta ligeramente el tamaño */
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.price-new {
+  font-size: 1rem;
+  color: #28a745;
+  margin-left: 10px;
+}
+.carousel{
+  z-index: -100;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.service-title {
+  margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+  font-weight: bold; /* Hace el texto negrita */
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+
+.service{
+  background-color: #04B2D9;
+}
+
+/*Trabajamos con als mejores marcas*/
+
+.brands-container {
+  width: 100%;
+  background-color: #f9f9f9; /* Fondo claro opcional */
+  padding: 30px 0;
+  margin-top: 30px;
+}
+
+.text-orange {
+  color: #04B2D9; /* Color naranja */
+}
+
+.brand-logo {
+  max-width: 50px; /* Tamaño pequeño para las imágenes */
+  max-height: 50px; /* Ajustar altura máxima */
+  object-fit: contain; /* Asegur
+  
+  a que las imágenes se ajusten sin distorsión */
+}
+
+.services-section {
+  background-color: #04B2D9; /* Fondo naranja */
+  padding: 20px 0;
+}
+
+.services-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff; /* Blanco */
+  margin-bottom: 20px;
+}
+
+.service-card {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.service-icon img {
+  width: 50px; /* Ajusta el tamaño del ícono */
+  height: 50px;
+}
+
+.service-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ff8c00; /* Naranja */
+  margin-top: 10px;
 }

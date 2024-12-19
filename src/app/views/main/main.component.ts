@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
   carrito: any[] = [];
 
 
-  productoForm: FormGroup;
+  productoForm: FormGroup;y
   ProductoData = {
     nombre: '',
     descripcion: '',
@@ -62,6 +62,14 @@ export class MainComponent implements OnInit {
     });
     
   }
+
+  calcularDescuento(precioAnterior: number, precioActual: number): number {
+    if (precioAnterior && precioActual) {
+      return Math.round(((precioAnterior - precioActual) / precioAnterior) * 100);
+    }
+    return 0;
+  }
+  
 
   agregarAlCarrito(producto: any): void {
     this.cartsService.agregarProducto(producto);

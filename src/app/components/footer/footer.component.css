@@ -1,0 +1,31 @@
+.footer {
+    background-color: #01343f; /* Color de fondo similar al mostrado */
+    color: #fff;
+    font-family: Arial, sans-serif;
+    z-index: -100;
+  }
+  
+  .footer a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+    color: #f0f0f0;
+  }
+  
+  .footer h6 {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .footer .list-unstyled li {
+    margin-bottom: 10px;
+  }
+  
+  .footer hr {
+    border-top: 1px solid #fff;
+    margin: 20px 0;
+  }
+  

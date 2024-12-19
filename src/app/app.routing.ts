@@ -4,6 +4,8 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { EmptyLayoutComponent } from './layouts/empty-layout/empty-layout.component';
+import { LoginComponent } from './views/login/login.component';
 
 const routes: Routes =[
   {
@@ -17,7 +19,15 @@ const routes: Routes =[
       path: '',
       loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
-  }
+  },
+
+  {
+    path: 'login',
+    component: EmptyLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent },
+    ],
+  },
 ];
 
 @NgModule({
@@ -28,7 +38,8 @@ const routes: Routes =[
        useHash: true
     })
   ],
-  exports: [
-  ],
+  exports: [RouterModule],
+
+
 })
 export class AppRoutingModule { }

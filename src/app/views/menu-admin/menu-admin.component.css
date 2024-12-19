@@ -1,0 +1,76 @@
+.menu-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.menu-title {
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.icon-card {
+  background-color: #0096ff;
+  color: white;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  transition: transform 0.2s ease-in-out;
+  max-width: 150px;
+  font-size: 40px;
+}
+
+.icon-card:hover {
+  transform: scale(1.05);
+}
+
+.icon-card i {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.icon-card p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.menu-footer {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #007bff;
+  margin-top: 3.5rem;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.container {
+  padding: 5px;
+  width: 80%; /* Limitar el ancho para centrar las cards */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+.image_card {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 8px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.col-6 {
+  margin-bottom: 1rem; /* Ajustar el espacio entre las cards */
+}
+
+.col-md-3 {
+  flex: 0 0 23%; /* Hacer que las cards ocupen un 23% del contenedor */
+  max-width: 23%; /* Limitar el ancho máximo */
+}

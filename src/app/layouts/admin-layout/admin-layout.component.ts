@@ -114,10 +114,10 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   isMaps(path: string): boolean {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    titlee = titlee.slice(1);
-    return path !== titlee;
+    const titlee = this.location.prepareExternalUrl(this.location.path());
+    return titlee.indexOf(path) !== -1;
   }
+  
 
   runOnRouteChange(): void {
     if (window.matchMedia('(min-width: 960px)').matches && !this.isMac()) {

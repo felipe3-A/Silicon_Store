@@ -1,38 +1,84 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-orange">
-  <div class="container-fluid">
-    <!-- Título alineado a la izquierda -->
-    <a class="navbar-brand" href="#">Mi Tienda</a>
+<div class="d-flex justify-content-between align-items-center vh-15 orange px-3">
+  <!-- Contenedor 1: Logo -->
+  <div class="col d-flex justify-content-center">
+    <img src="assets/img/Silicon_logo.png" class="image" routerLink="/store" alt="Logo Silicon" >
+  </div>
 
-    <!-- Botón para el menú móvil -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMobileMenu()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <div class="col d-flex flex-column align-items-start">
+    <!-- Texto encima y a la izquierda del buscador -->
+    <p class="text-white fw-bold mb-1">Buscar un producto</p>
 
-    <!-- Opciones del navbar alineadas a la derecha -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <a class="nav-link" routerLink="/cart">
-          <i class="material-icons">shopping_cart</i>
-          <span class="badge bg-danger">{{ cart.length }}</span>
-        </a>
-        
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/oferts">
-            <i class="material-icons">local_offer</i> Ofertas
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/mas">
-            <i class="material-icons">more_horiz</i> Más
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/productAdd">
-            <i class="material-icons">user</i> Login
-          </a>
-        </li>
-      </ul>
+    <!-- Barra del buscador -->
+    <div class="search_input d-flex align-items-center">
+      <input type="search" class="buscador" />
+      <i class="bi bi-search buscador-icono"></i>
     </div>
   </div>
-</nav>
+
+
+
+  <!-- Contenedor 3: Texto o Menú -->
+  <div class="col d-flex justify-content-center align-items-center text-white flex-column">
+    <!-- Contenedor 3 principal -->
+    <div class="d-flex align-items-center">
+      <!-- Ícono de usuario -->
+      <i class="bi bi-person-circle user-icon"></i>
+
+      <!-- Texto de Bienvenida -->
+      <div class="ms-3">
+        <p class="mb-0 fw-bold_1">Bienvenido</p>
+        <p class="mb-0">Usuario</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Contenedor 4: Opciones -->
+  <div class="col d-flex justify-content-center text-dark">
+    <a class="nav-link" routerLink="/cart">
+      <i class="material-icons icon_card">shopping_cart</i>
+      <span class="badge bg-danger">{{ cart.length }}</span>
+    </a>
+  </div>
+</div>
+
+<!-- Banner para el menú -->
+<div class="row opc text-center">
+  <ul class="list-unstyled d-flex justify-content-center align-items-center gap-4 mb-0">
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text">Productos en Oferta</span>
+    </li>
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text"> Categorías</span>
+    </li>
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text"> Descuentos</span> 
+    </li>
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text"> Catálogo</span>
+     </li>
+     <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text"> Carrito</span>
+     </li>
+   
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text"> Recientes</span >
+    </li>
+
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text"> Pedidos de Reparación</span >
+    </li>
+
+    <li class="menu-item d-flex flex-column align-items-center">
+      <span class="opc_text">Ajustes</span>
+      <ul class="dropdown-menu">
+        <li>Políticas de la empresa</li>
+        <li routerLink="/login">Login</li>
+        <li>Sobre la aplicación</li>
+        <li>Cómo usar nuestra aplicación</li>
+      </ul>
+    </li>
+    
+  </ul>
+</div>
+ 

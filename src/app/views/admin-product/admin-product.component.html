@@ -184,9 +184,18 @@
     </tbody>
   </table>
 </div>
-<app-see-product [productoSeleccionado]="productoSeleccionado" *ngIf="showModal" (close)="showModal = false">
-</app-see-product>
+
+
+
+<edit-product
+  *ngIf="showModal"
+  [productoSeleccionado]="productoSeleccionado"
+  (close)="closeModal()"
+  (actualizarUsuario)="recargarUsuarios()">
+</edit-product>
 
 
 <edit-product [productoSeleccionado]="productoSeleccionado" *ngIf="showModal1" (close)="showModal1=false">
 </edit-product>
+
+

@@ -1,24 +1,169 @@
-/* Aseguramos que el navbar tiene el fondo naranja */
-.bg-orange {
-    background-color: orange !important;
-  }
-  
-  /* Alineamos el título a la izquierda */
-  .navbar-brand {
-    margin-right: auto;
-  }
-  
-  /* Alineamos las opciones del navbar a la derecha */
-  .navbar-nav {
-    margin-left: auto;
-  }
-  
-  /* Aseguramos que el texto de los links sea visible sobre el fondo */
-  .navbar-light .navbar-nav .nav-link {
-    color: black; /* Puedes ajustar el color */
-  }
-  
-  .navbar-light .navbar-brand {
-    color: black; /* Puedes ajustar el color */
-  }
-  
+.orange {
+  background-color: #04B2D9;
+  width: 100%;
+  height: 15vh; /* Altura total de la barra */
+}
+
+.image {
+  width: 60%; /* Ajuste dinámico del tamaño */
+  max-width: 100px; /* Evita que sea demasiado grande */
+}
+
+/* Contenedor del buscador */
+.search_input {
+  width: 320px; /* Ancho del buscador */
+  height: 40px; /* Altura del buscador */
+  border-radius: 20px; /* Bordes redondeados */
+  background-color: white; /* Fondo blanco */
+  display: flex;
+  align-items: center;
+  padding: 0 10px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde claro */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para realce */
+}
+
+/* Input del buscador */
+.buscador {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  border: none;
+  outline: none;
+  color: black; /* Color del texto */
+  font-size: 1rem;
+  padding: 0 10px; /* Espaciado interno */
+  background: transparent; /* Fondo transparente */
+}
+
+/* Ícono del buscador */
+.buscador-icono {
+  font-size: 1.2rem; /* Tamaño del ícono */
+  color: #04B2D9; /* Color anaranjado */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
+}
+
+/* Texto encima del buscador */
+.fw-bold {
+  font-weight: 700; /* Negrita */
+  font-size: 1rem; /* Ajuste del tamaño del texto */
+  margin-bottom: 0.2rem; /* Espacio entre texto y buscador */
+  margin-left: 20px;
+}
+
+/* Ícono de usuario */
+.user-icon {
+  font-size: 3rem; /* Tamaño grande */
+  color: white; /* Color blanco */
+
+}
+
+/* Texto de Bienvenida */
+.fw-bold_1 {
+  font-size: 1.5rem; /* Texto más grande para 'Bienvenido' */
+  margin-right: 20px;
+  font-weight: bolder;
+
+}
+
+p {
+  font-size: 1rem; /* Tamaño estándar */
+  margin-top: -10px;
+}
+
+.icon_card{
+  color: white;
+  font-size: 4.0rem;
+}
+
+/*estilos para el menu de opciones*/
+/* Estilos para el banner del menú */
+.opc {
+  background-color: #339AF0; /* Color de fondo */
+  padding: 10px 0; /* Espaciado */
+  color: white; /* Texto blanco */
+}
+
+/* Estilo general de los elementos del menú */
+.menu-item {
+  cursor: pointer; /* Cursor interactivo */
+  transition: transform 0.3s ease, color 0.3s ease; /* Animación de interacción */
+}
+
+.menu-item span {
+  font-size: 0.9rem; /* Tamaño de texto */
+  margin-top: 5px; /* Separación entre ícono y texto */
+}
+
+/* Íconos del menú */
+.menu-icon {
+  font-size: 1.5rem; /* Tamaño de los íconos */
+  color: white; /* Color blanco */
+  transition: color 0.3s ease; /* Animación de color */
+}
+
+/* Interacciones al pasar el ratón */
+.menu-item:hover {
+  transform: scale(1.1); /* Aumenta el tamaño ligeramente */
+  color: #ffffff; /* Cambia el color del texto */
+  font-weight: 700;
+}
+
+
+
+.opc_text{
+  margin: 2px;
+}
+
+.menu-item {
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  margin: 0;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(-10px);
+  z-index: 100;
+}
+
+.dropdown-menu li {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f2f2f2;
+}
+
+.menu-item:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  margin: 0;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(-10px);
+  z-index: 9999; /* Asegúrate de que esté por encima */
+}
+

@@ -14,6 +14,7 @@
               <h5 class="card-title">{{ producto.nombre }}</h5>
               <p class="card-text">{{ producto.descripcion }}</p>
               <p class="card-text"><strong>Precio: {{ producto.precio | currency }}</strong></p>
+              <button class="btn btn-danger" (click)="eliminarProductoC(producto)">Eliminar</button> <!-- Botón de eliminar -->
             </div>
           </div>
         </div>
@@ -27,9 +28,7 @@
           <h5 class="card-title">Resumen del Carrito</h5>
           <ul class="list-group mb-3">
             <!-- Mostrar cada producto seleccionado con su precio -->
-            <li 
-              *ngFor="let producto of carrito" 
-              class="list-group-item d-flex justify-content-between align-items-center">
+            <li *ngFor="let producto of carrito" class="list-group-item d-flex justify-content-between align-items-center">
               <span>{{ producto.nombre }}</span>
               <span>{{ producto.precio | currency }}</span>
             </li>
@@ -39,9 +38,11 @@
             <span><strong>Total:</strong></span>
             <span><strong>{{ calcularTotal() | currency }}</strong></span>
           </div>
-          <button class="btn btn-warning w-100 text-white">
+          <!-- Botón de compra, visible solo si el carrito no está vacío -->
+          <button *ngIf="carrito.length > 0" class="btn btn-warning w-100 text-white" routerLink="/buyProduct">
             <i class="bi bi-cart-check"></i> Comprar
           </button>
+          <p *ngIf="carrito.length === 0" class="text-center mt-3">Tu carrito está vacío.</p>
         </div>
       </div>
     </div>

@@ -20,21 +20,19 @@
               "src/assets",
               "src/favicon.ico"
             ],
-          "styles": [
-  "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-  "src/assets/scss/material-dashboard.scss",
-  "node_modules/bootstrap/dist/css/bootstrap.min.css", 
-  "src/assets/css/demo.css"
-]
-,
-
+            "styles": [
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "src/assets/scss/material-dashboard.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/css/demo.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+            ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/arrive/src/arrive.js",
               "node_modules/moment/moment.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-,
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js"
@@ -91,8 +89,6 @@
           "options": {
             "browserTarget": "material-dashboard-angular:build",
             "proxyConfig": "proxy.conf.json"
-
-          
           },
           "configurations": {
             "production": {

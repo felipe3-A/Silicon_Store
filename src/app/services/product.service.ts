@@ -29,6 +29,8 @@ export class ProductService {
   editarProducto(id: number, ProductoData: any): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/api/producto/${id}`, ProductoData);
   }
+
+  
   
   
 }

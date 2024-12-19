@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ProductService } from "app/services/product.service";
 import Swal from "sweetalert2";
+import { UsuarioService } from "app/services/usuarios/usuario-service.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { error } from "console";
 import { ChangeDetectorRef } from "@angular/core";
+import { response } from "express";
+import { error, log } from "node:console";
 
 @Component({
   selector: "admin-product",
@@ -13,10 +15,12 @@ import { ChangeDetectorRef } from "@angular/core";
 })
 export class AdminProductComponent implements OnInit {
   productos = [];
+
   productoForm: FormGroup;
+
   ProductoData: any = {
     nombre: null,
-    descripcion:null,
+    descripcion: null,
     precio: null,
     imagen: null,
     categoria: null,
@@ -30,18 +34,22 @@ export class AdminProductComponent implements OnInit {
   };
 
 
-
-  
   @ViewChild("modalContent") modalContent: ElementRef<any> | null = null;
 
   showModal: boolean = false; // Modal de ver
   showModal1: boolean = false; // Modal de editar
+
+
+
   productoSeleccionado: any = {};
+
   mostarMEditar: boolean = false;
   mostarMVer: boolean = false;
-  idProductoEditar: number | null = null;
 
- 
+  
+
+  idProductoEditar: number | null = null;
+  idUserEditar: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -53,8 +61,8 @@ export class AdminProductComponent implements OnInit {
   ngOnInit(): void {
     this.productoForm = this.fb.group({
       nombre: ["", [Validators.required]],
-      descripcion: ["",[Validators.required]],
-      imagen: ["",[Validators.required]],
+      descripcion: ["", [Validators.required]],
+      imagen: ["", [Validators.required]],
       cantidad: [
         "",
         [
@@ -62,13 +70,13 @@ export class AdminProductComponent implements OnInit {
           Validators.pattern(/^\d+$/), // Solo números enteros
         ],
       ],
-      categoria: ["",[Validators.required]],
-      referencia: ["",[Validators.required]],
-      garantia:["",[Validators.required]],
-      marca:["",[Validators.required]],
-      envio:["",[Validators.required]],
-      proovedor:["",[Validators.required]],
-      recepcion:["",[Validators.required]],
+      categoria: ["", [Validators.required]],
+      referencia: ["", [Validators.required]],
+      garantia: ["", [Validators.required]],
+      marca: ["", [Validators.required]],
+      envio: ["", [Validators.required]],
+      proovedor: ["", [Validators.required]],
+      recepcion: ["", [Validators.required]],
       precio: [
         "",
         [
@@ -82,7 +90,6 @@ export class AdminProductComponent implements OnInit {
     this.listarProductos();
   }
 
-  
 
   formatDecimal(fieldName: string): void {
     const control = this.productoForm.get(fieldName);
@@ -97,22 +104,12 @@ export class AdminProductComponent implements OnInit {
     this.showModal1 = false; // Asegúrate de cerrar ambos modales
   }
 
-  abrirModalVer(producto: any): void {
-    this.productoSeleccionado = producto;
-    this.showModal = true; // Abre el modal de ver
-    this.showModal1 = false; // Cierra el modal de editar
-  }
-
-  abrirModalEditar(productos: any): void {
-    this.ProductoData = { ...productos }; // Copia el producto recibido
-    this.showModal1 = true; // Abre el modal de edición
-    this.showModal = false; // Cierra el modal de ver
-  }
+ 
 
   listarProductos(): void {
     this.productService.listarProductos().subscribe(
       (response) => {
-        console.log("Respuesta del servicio:", response);
+        console.log("Respuesta del servicio de productos:", response);
         this.productos = response.data || response; // Ajusta esto según el formato real de la respuesta
       },
       (error) => {
@@ -141,7 +138,7 @@ export class AdminProductComponent implements OnInit {
         ...this.productoForm.value,
         precio: parseFloat(this.productoForm.get("precio")?.value),
       };
-  
+
       this.productService.crearProducto(producto).subscribe(
         (response) => {
           Swal.fire("¡Éxito!", "Producto creado exitosamente", "success").then(
@@ -159,7 +156,7 @@ export class AdminProductComponent implements OnInit {
       );
     }
   }
-  
+
   eliminarProducto(id: number): void {
     Swal.fire({
       title: "¿Seguro que quieres borrar este producto permanentemente?",
@@ -182,4 +179,6 @@ export class AdminProductComponent implements OnInit {
       }
     });
   }
+
+ 
 }

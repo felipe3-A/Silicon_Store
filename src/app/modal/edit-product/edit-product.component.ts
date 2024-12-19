@@ -36,6 +36,7 @@ export class EditProductComponent {
       nombre: this.productoSeleccionado.nombre,
       descripcion: this.productoSeleccionado.descripcion,
       precio: parseFloat(this.productoSeleccionado.precio.trim()),  // Asegurarse de que el precio esté limpio
+
       imagen: this.productoSeleccionado.imagen || '',  // Usar la imagen actual si no se especifica una nueva
       referencia: this.productoSeleccionado.referencia,
       categoria: this.productoSeleccionado.categoria,

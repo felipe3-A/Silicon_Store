@@ -13,6 +13,10 @@ import { AdminProductComponent } from 'app/views/admin-product/admin-product.com
 import { Component } from '@angular/core';
 import { CartComponent } from 'app/views/cart/cart.component';
 import { OfertsComponent } from 'app/views/oferts/oferts.component';
+import { BuyProductComponent } from 'app/views/buy-product/buy-product.component';
+import { LoginComponent } from 'app/views/login/login.component';
+import { MenuAdminComponent } from 'app/views/menu-admin/menu-admin.component';
+import { UserComponent } from 'app/views/user/user.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -71,5 +75,11 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'store', component: MainComponent },
     {path: 'productAdd', component: AdminProductComponent},
     {path: 'cart', component:CartComponent},
-    {path:'oferts', component: OfertsComponent}
+    {path:'oferts', component: OfertsComponent},
+    {path:'buyProduct', component: BuyProductComponent},
+    {path:'main', component: MenuAdminComponent},
+    {path:'users', component: UserComponent},
+
+
+    // {path:'login', component: LoginComponent},
 ];
