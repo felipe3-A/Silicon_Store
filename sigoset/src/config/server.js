@@ -15,9 +15,10 @@ appSigoSet.use(morgan("dev"));
 
 
 const productosRoutes = require("../routes/productoRoutes"); // Asegúrate de que exista y sea correcto
-
+const usuariosRoutes = require("../routes/usuarioRoutes")
 
 appSigoSet.use(productosRoutes)
+appSigoSet.use(usuariosRoutes)
 
 
 
