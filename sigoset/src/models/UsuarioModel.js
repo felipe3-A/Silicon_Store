@@ -4,17 +4,7 @@ const bcrypt = require('bcrypt');
 
 const Usuario = {
   // Encuentra un usuario por email
-  findByEmail: async (email) => {
-    try {
-      email = email.trim(); // Limpiar espacios antes de la consulta
-      const [rows] = await pool.execute('SELECT * FROM usuarios WHERE email = ?', [email]);
-      return rows[0]; // Devuelve el primer usuario encontrado
-    } catch (error) {
-      console.error("Error en findByEmail:", error);
-      throw error;
-    }
-  },
-
+  
   // Crear un login con email, identificación y contraseña
   createLogin: async (email, identificacion, password) => {
     try {
@@ -70,16 +60,6 @@ const Usuario = {
   }
 };
 
-// Encuentra un usuario por su ID
-async function findByPk(id) {
-  try {
-    const [rows] = await pool.execute('SELECT * FROM usuarios WHERE id = ?', [id]);
-    return rows[0];
-  } catch (error) {
-    console.error("Error en findByPk:", error);
-    throw error;
-  }
-}
 
 // Encuentra un usuario por email (otra implementación)
 async function findOneByEmail(email) {
@@ -110,5 +90,4 @@ module.exports = {
   Usuario,
   findOneByEmail,
   deleteById,
-  findByPk
 };

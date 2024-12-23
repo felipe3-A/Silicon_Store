@@ -5,10 +5,11 @@ const {
   eliminarUsuario,
   crearUsuario,
   cerrarSesion,
-  loginUser, // Asegúrate de incluir esta función
+getUsuarioById,  loginUser, // Asegúrate de incluir esta función
 } = require("../services/usuarioService");
 
 const bcrypt = require('bcrypt'); // Para manejar el cifrado de contraseñas
+const { findByPk } = require('../models/UsuarioModel'); // Ajusta la ruta si es necesario
 
 const { findOneByEmail } = require("../models/UsuarioModel");
 
@@ -58,7 +59,23 @@ controller.obtenerUsuarios = async (req, res, next) => {
       error: error.message,
     });
   }
+}
+
+controller.getUsuarioById = async (req, res) => {
+  const { id } = req.params; // Obtenemos el ID desde los parámetros de la solicitud
+  try {
+    const usuario = await getUsuarioById(id); // Llamamos al servicio para obtener el usuario por su ID
+    if (usuario) {
+      res.status(200).json(usuario); // Si el usuario existe, lo devolvemos en la respuesta
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" }); // Si no se encuentra, respondemos con un error 404
+    }
+  } catch (error) {
+    console.error("Error en getUsuarioById:", error);
+    res.status(500).json({ message: "Error interno del servidor" }); // Error genérico en caso de fallo
+  }
 };
+
 
 // Editar usuario
 controller.editarUsuario = async (req, res) => {

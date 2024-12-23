@@ -6,6 +6,7 @@ const {
   listarProductos 
 } = require('../services/productoService');
 const path = require('path');
+const upload = require('../uploads/uploads')
 
 const controller = {};
 
@@ -28,16 +29,12 @@ controller.listarProductos = async (req, res, next) => {
 // Crear producto
 controller.crearProducto = async (req, res) => {
   try {
-    const { nombre, descripcion, precio,imagen,cantidad,referencia,categoria,garantia,marca,envio,proovedor,recepcion } = req.body;
-    
-    // Verifica si el archivo de imagen existe
-   //  const imagen = req.file ? req.file.filename : null; // Nombre de la imagen (filename)
-
-   //  if (!imagen) {
-   //    return res.status(400).json({ message: "Se requiere una imagen para el producto." });
-    // }
-
-    // Guarda la URL completa de la imagen
+    const { nombre, descripcion, precio,magen,cantidad,referencia,categoria,garantia,marca,envio,proovedor,recepcion } = req.body;
+    const imagen = req.file ? req.file.filename : null;
+  
+    if (!imagen) {
+      return res.status(400).json({ message: "La imagen del producto es requerida." });
+    }
     const nuevoProducto = { 
       nombre, 
       descripcion, 

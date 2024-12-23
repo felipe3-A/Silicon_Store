@@ -30,6 +30,9 @@ const listarProductos = async () => {
   }
 };
 
+
+
+
 const editarProducto = async (id, nuevoProducto) => {
   try {
     const [result] = await Productos.update(id, nuevoProducto);  // Actualizar producto

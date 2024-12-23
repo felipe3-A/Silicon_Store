@@ -2,8 +2,10 @@ const {
   Usuario,
   findOneByEmail,
   deleteById,
-  findByPk,
 } = require("../models/UsuarioModel");
+
+const { findByPk } = require('../models/UsuarioModel');
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pool = require("../config/database");
@@ -55,6 +57,7 @@ const obtenerUsuarios = async () => {
     throw error;
   }
 };
+
 
 async function loginUser(req, res) {
   try {
@@ -157,22 +160,21 @@ async function eliminarUsuario(id) {
   }
 }
 
-//listar usuario por id
-const getUserById = async (id) => {
+
+async function getUsuarioById(id) {
   try {
-    const user = await findByPk(id);
-    if (!user) {
+    const usuario = await findByPk(id); // Llamamos al servicio para obtener el usuario por su ID
+    if (usuario) {
+      return usuario;
+    } else {
       throw new Error("Usuario no encontrado");
     }
-
-    // Seleccionar solo los campos deseados del usuario
-    const { nombre, email, identificacion, direccion, telefono, pago } = user;
-
-    return { nombre, email, identificacion, direccion, telefono, pago };
   } catch (error) {
-    throw new Error("Error al obtener el usuario por ID: " + error.message);
+    throw error;
   }
-};
+}
+
+
 
 module.exports = {
   obtenerUsuarios,
@@ -180,6 +182,6 @@ module.exports = {
   crearUsuario,
   editarUsuario,
   eliminarUsuario,
-  getUserById,
+getUsuarioById,
   cerrarSesion
 };

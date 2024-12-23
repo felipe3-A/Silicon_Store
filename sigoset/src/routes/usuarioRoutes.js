@@ -5,6 +5,7 @@ const {
   obtenerUsuarios,
   editarUsuario,
   eliminarUsuario,
+  getUsuarioById,
   cerrarSesionC
 } = require("../controller/UsuarioController");
 const validarTokenMiddleware = require('../middleware/VerificadorToken')
@@ -14,6 +15,7 @@ const { postLogin } = require('../controller/UsuarioController');
 router.post("/usuarios", crearUsuario);
 router.get("/usuarios", validarTokenMiddleware, obtenerUsuarios);
 router.post("/login",postLogin );
+router.get("/usuarios/:id", getUsuarioById)
 router.put("/usuarios/:id", editarUsuario);
 router.delete("/usuarios/:id", eliminarUsuario);
 router.post('/cerrarSesion', cerrarSesionC);
