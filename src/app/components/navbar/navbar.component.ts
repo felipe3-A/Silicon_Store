@@ -2,6 +2,10 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartServiceService } from 'app/services/cart-service.service'; // Asegúrate de importar tu servicio
+import { LoginService } from 'app/services/usuarios/login-service.service';
+import { TokenValidationService } from '../../services/VerificacionUser/token-validation.service';
+import { UsuarioService } from 'app/services/usuarios/usuario-service.service';
+import { AuthServiceService } from 'app/services/AuthService/auth-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +15,9 @@ import { CartServiceService } from 'app/services/cart-service.service'; // Aseg�
 export class NavbarComponent implements OnInit {
   location: Location;
   mobile_menu_visible: any = 0;
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+  nombre: string = '';
   private toggleButton: any;
   cart: any[] = []; // Propiedad para almacenar los datos del carrito
 
@@ -18,17 +25,39 @@ export class NavbarComponent implements OnInit {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private cartService: CartServiceService // Inyecta el servicio del carrito
+    private loginService: LoginService,
+    private userSrervice: UsuarioService,
+    private tokenvalidationService: TokenValidationService,
+    private cartService: CartServiceService, // Inyecta el servicio del carrito
+    private authService: AuthServiceService,
+
+
   ) {
     this.location = location;
   }
 
   ngOnInit() {
     const navbar: HTMLElement = this.element.nativeElement;
+    
+    this.authService.getUserRole().subscribe((role: string) =>{
+      this.isAdmin = role === 'admin'
+    })
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
     this.router.events.subscribe((event) => {
       this.closeMobileMenu();
     });
+    this.loginService.loginStatusChanged.subscribe(status => {
+      this.isLoggedIn = true;
+      localStorage.setItem('isLoggedIn', JSON.stringify(status));
+      if (status) {
+        this.fetchUsername();
+      } else {
+        this.nombre = '';
+      }
+    });
+
+    
+
 
     // Inicializar el carrito
     this.cart = this.cartService.obtenerCarrito();
@@ -42,6 +71,8 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+
+  
   toggleMobileMenu() {
     var $toggle = document.getElementsByClassName('navbar-toggler')[0];
     const body = document.getElementsByTagName('body')[0];
@@ -93,4 +124,24 @@ export class NavbarComponent implements OnInit {
     }
     return 'Dashboard'; // Puedes agregar lógica para otros títulos si lo necesitas
   }
+
+  private fetchUsername(): void {
+    const storedToken = this.tokenvalidationService.getToken();
+    if (storedToken) {
+      const userId = this.tokenvalidationService.getUserData(storedToken).userId;
+      this.userSrervice.obtenerUsuarioId(userId).subscribe(
+        response => {
+          if (response && response.user) {
+            this.nombre = response.data.nombre;
+          } else {
+            console.error('Faltan datos de usuario en la respuesta');
+          }
+        },
+        error => {
+          console.error('Error al obtener el usuario:', error);
+        }
+      );
+    }
+  }
+
 }

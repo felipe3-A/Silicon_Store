@@ -1,12 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { ProductService } from "app/services/product.service";
-import Swal from "sweetalert2";
-import { UsuarioService } from "app/services/usuarios/usuario-service.service";
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ProductService } from "app/services/product.service";
 import { Router } from "@angular/router";
 import { ChangeDetectorRef } from "@angular/core";
-import { response } from "express";
-import { error, log } from "node:console";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "admin-product",
@@ -15,69 +18,39 @@ import { error, log } from "node:console";
 })
 export class AdminProductComponent implements OnInit {
   productos = [];
-
+  productosFiltrados: any[] = [];
   productoForm: FormGroup;
-
-  ProductoData: any = {
-    nombre: null,
-    descripcion: null,
-    precio: null,
-    imagen: null,
-    categoria: null,
-    referencia: null,
-    cantidad: null,
-    garantia: null,
-    marca: null,
-    envio: null,
-    proovedor: null,
-    recepcion: null,
-  };
-
-
-  @ViewChild("modalContent") modalContent: ElementRef<any> | null = null;
-
+  previsualizacion: string = "";
+  archivos: any[] = [];
+  terminoBusqueda: string = "";
+  noResultados: boolean = false;
+  currentPage: number = 1;
+  pageSize: number = 10;
   showModal: boolean = false; // Modal de ver
   showModal1: boolean = false; // Modal de editar
 
-
-
-  productoSeleccionado: any = {};
-
-  mostarMEditar: boolean = false;
-  mostarMVer: boolean = false;
-
-  
-
-  idProductoEditar: number | null = null;
-  idUserEditar: number | null = null;
+  @ViewChild("modalContent") modalContent: ElementRef<any> | null = null;
 
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.productoForm = this.fb.group({
-      nombre: ["", [Validators.required]],
-      descripcion: ["", [Validators.required]],
-      imagen: ["", [Validators.required]],
-      cantidad: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(/^\d+$/), // Solo números enteros
-        ],
-      ],
-      categoria: ["", [Validators.required]],
-      referencia: ["", [Validators.required]],
-      garantia: ["", [Validators.required]],
-      marca: ["", [Validators.required]],
-      envio: ["", [Validators.required]],
-      proovedor: ["", [Validators.required]],
-      recepcion: ["", [Validators.required]],
-      precio: [
+      nombre_producto: ["", [Validators.required]],
+      descripcion_producto: ["", [Validators.required]],
+      url_imagen: ["", [Validators.required]],
+      cantidad_producto: ["", [Validators.required, Validators.pattern(/^\d+$/)]],
+      categoria_producto: ["", [Validators.required]],
+      referencia_producto: ["", [Validators.required]],
+      garantia_producto: ["", [Validators.required]],
+      marca_producto: ["", [Validators.required]],
+      envio_producto: ["", [Validators.required]],
+      precio_producto: [
         "",
         [
           Validators.required,
@@ -86,76 +59,104 @@ export class AdminProductComponent implements OnInit {
         ],
       ],
     });
-
     this.listarProductos();
   }
-
-
-  formatDecimal(fieldName: string): void {
-    const control = this.productoForm.get(fieldName);
-    if (control?.value) {
-      const formattedValue = parseFloat(control.value).toFixed(2);
-      control.setValue(formattedValue, { emitEvent: false });
-    }
-  }
-
-  closeModal(): void {
-    this.showModal = false;
-    this.showModal1 = false; // Asegúrate de cerrar ambos modales
-  }
-
- 
 
   listarProductos(): void {
     this.productService.listarProductos().subscribe(
       (response) => {
-        console.log("Respuesta del servicio de productos:", response);
-        this.productos = response.data || response; // Ajusta esto según el formato real de la respuesta
+        this.productos = response.data.map((producto) => {
+          if (producto.url_imagen) {
+            producto.imagen = producto.url_imagen;
+          }
+          return producto;
+        });
+        this.filtrarProductos();
       },
       (error) => {
-        console.log("Error al obtener Productos", error);
+        console.error("Error al obtener Productos", error);
       }
     );
   }
 
-  crearProducto() {
-    if (this.productoForm.invalid) {
-      // Recorremos todos los campos para ver cuáles están inválidos o vacíos
-      Object.keys(this.productoForm.controls).forEach((campo) => {
-        const control = this.productoForm.get(campo);
-        if (control?.invalid) {
-          // Mostrar en consola el nombre del campo y el mensaje correspondiente
-          console.log(`El campo ${campo} es inválido o está vacío.`);
-        }
-      });
-      Swal.fire(
-        "Error",
-        "Por favor complete correctamente el formulario.",
-        "warning"
+  filtrarProductos(): void {
+    if (this.terminoBusqueda.trim() !== "") {
+      this.productosFiltrados = this.productos.filter((producto) =>
+        [
+          producto.referencia,
+          producto.nombre,
+          producto.descripcion,
+          producto.precio.toString(),
+        ]
+          .some((campo) =>
+            campo?.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+          )
       );
+      this.noResultados = this.productosFiltrados.length === 0;
     } else {
-      const producto = {
-        ...this.productoForm.value,
-        precio: parseFloat(this.productoForm.get("precio")?.value),
-      };
-
-      this.productService.crearProducto(producto).subscribe(
-        (response) => {
-          Swal.fire("¡Éxito!", "Producto creado exitosamente", "success").then(
-            () => {
-              // Limpiar el formulario
-              this.productoForm.reset();
-              // Llamar al método que actualiza la lista de productos
-              this.listarProductos();
-            }
-          );
-        },
-        (error) => {
-          Swal.fire("Error", "Ocurrió un error al crear el producto.", "error");
-        }
-      );
+      this.productosFiltrados = [...this.productos];
     }
   }
+
+  capturarFile(event: any): void {
+    const archivo = event.target.files[0];
+    if (archivo) {
+      const tiposPermitidos = ["image/jpeg", "image/png", "image/jpg", "image/avif", "image/webp"];
+      if (!tiposPermitidos.includes(archivo.type)) {
+        Swal.fire("Error", "El archivo debe ser una imagen (JPEG/PNG/JPG/AVIF/WEBP)", "error");
+        return;
+      }
+      this.archivos.push(archivo);
+      this.extraerBase64(archivo).then((imagen: any) => {
+        this.previsualizacion = imagen.base || "";
+      });
+    }
+  }
+  
+  extraerBase64 = async (file: File) =>
+    new Promise((resolve) => {
+      try {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve({ base: reader.result });
+        reader.onerror = () => resolve({ base: null });
+      } catch {
+        resolve({ base: null });
+      }
+    });
+  
+    crearProducto(): void {
+      if (this.productoForm.invalid) {
+        this.productoForm.markAllAsTouched();
+        return;
+      }
+    
+      const formData = new FormData();
+      if (this.archivos.length > 0) {
+        formData.append("image", this.archivos[0]);
+      }
+    
+      Object.keys(this.productoForm.controls).forEach((key) => {
+        const controlValue = this.productoForm.get(key)?.value;
+        console.log(key, controlValue);  // Verifica que no esté siendo undefined
+        if (controlValue === undefined || controlValue ==='') {
+          formData.append(key, null);
+        } else {
+          formData.append(key, controlValue);  // Si el valor es undefined, agregar null
+        }
+      });
+      this.productService.crearProducto(formData).subscribe({
+        next: () => {
+          Swal.fire("Éxito", "Producto creado correctamente", "success");
+          this.listarProductos();
+          this.productoForm.reset();
+          this.archivos = [];
+          this.previsualizacion = "";
+        },
+        error: () => Swal.fire("Error", "No se pudo crear el producto", "error"),
+      });
+    }
+    
 
   eliminarProducto(id: number): void {
     Swal.fire({
@@ -170,15 +171,20 @@ export class AdminProductComponent implements OnInit {
         this.productService.eliminarProducto(id).subscribe(
           () => {
             Swal.fire("¡Éxito!", "Producto Eliminado exitosamente", "success");
-            this.listarProductos(); // Actualizamos la lista de productos
+            this.listarProductos();
           },
-          (error) => {
-            Swal.fire("¡Error!", "El producto no se pudo borrar", "error");
-          }
+          () => Swal.fire("¡Error!", "El producto no se pudo borrar", "error")
         );
       }
     });
   }
 
- 
+  closeModal(): void {
+    this.showModal = false;
+    this.showModal1 = false;
+  }
+
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
 }

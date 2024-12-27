@@ -1,201 +1,156 @@
-<!-- Formulario para crear producto -->
-<div class="container my-4">
-  <form [formGroup]="productoForm" (ngSubmit)="crearProducto()" class="row g-3">
-
-    <!-- Referencia -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="referencia" placeholder="Referencia" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('referencia')?.invalid && productoForm.get('referencia')?.touched"
-        class="text-warning">
-        Llena este campo
+<div class="container my-5">
+  <!-- Formulario para crear producto -->
+  <fieldset class="p-4 shadow-sm rounded bg-light">
+    <legend class="text-primary mb-3">Crear Producto</legend>
+    <form [formGroup]="productoForm" (ngSubmit)="crearProducto()" class="row g-4">
+      <!-- Referencia -->
+      <div class="col-md-3">
+        <label for="referencia" class="form-label">Referencia</label>
+        <input id="referencia" class="form-control" formControlName="referencia_producto" placeholder="Ej: REF001" />
+        <div *ngIf="productoForm.get('referencia')?.invalid && productoForm.get('referencia')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
       </div>
-    </div>
 
-    <!-- Envío -->
-<div class="col-md-3">
-  <input
-    class="form-control"
-    formControlName="envio"
-    placeholder="Envío"
-    type="text"
-  />
-  <div
-    *ngIf="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched"
-    class="text-warning"
-  >
-    Este campo es obligatorio
+      <!-- Envío -->
+      <div class="col-md-3">
+        <label for="envio" class="form-label">Envío</label>
+        <input id="envio" class="form-control" formControlName="envio_producto" placeholder="Ej: Nacional" />
+        <div *ngIf="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Garantía -->
+      <div class="col-md-3">
+        <label for="garantia" class="form-label">Garantía</label>
+        <input id="garantia" class="form-control" formControlName="garantia_producto" placeholder="Ej: 12 meses" />
+        <div *ngIf="productoForm.get('garantia')?.invalid && productoForm.get('garantia')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Marca -->
+      <div class="col-md-3">
+        <label for="marca" class="form-label">Marca</label>
+        <input id="marca" class="form-control" formControlName="marca_producto" placeholder="Ej: Samsung" />
+        <div *ngIf="productoForm.get('marca')?.invalid && productoForm.get('marca')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Cantidad -->
+      <div class="col-md-3">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <input id="cantidad" class="form-control" type="number" formControlName="cantidad_producto" placeholder="Ej: 10" />
+        <div *ngIf="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Nombre del producto -->
+      <div class="col-md-3">
+        <label for="nombre" class="form-label">Nombre del producto</label>
+        <input id="nombre" class="form-control" formControlName="nombre_producto" placeholder="Ej: Televisor 4K" />
+        <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Descripción -->
+      <div class="col-md-12">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea id="descripcion" class="form-control" formControlName="descripcion_producto"
+          placeholder="Descripción del producto"></textarea>
+        <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Categoría -->
+      <div class="col-md-3">
+        <label for="categoria" class="form-label">Categoría</label>
+        <select id="categoria" class="form-control" formControlName="categoria_producto">
+          <option value="" disabled selected>Seleccione una categoría</option>
+          <option value="computadoras">Computadoras</option>
+          <option value="televisores">Televisores</option>
+          <option value="electrodomesticos">Electrodomésticos</option>
+          <option value="equipos-reparacion">Equipos de Reparación</option>
+        </select>
+        <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+      <!-- Precio -->
+      <div class="col-md-3">
+        <label for="precio" class="form-label">Precio</label>
+        <input id="precio" class="form-control" formControlName="precio_producto" type="number" step="0.01"
+          placeholder="Ej: 1500.00" />
+        <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
+
+         <!-- Imagen -->
+         <div class="col-md-6">
+          <label for="imagen" class="form-label">Imagen</label>
+          <input id="imagen" (change)="capturarFile($event)" name="image" class="form-control" formControlName="url_imagen" type="file" />
+          <div *ngIf="productoForm.get('imagen')?.invalid && productoForm.get('imagen')?.touched" class="text-danger">
+            Este campo es obligatorio
+          </div>
+          <div class="mt-3" *ngIf="previsualizacion">
+            <p>Previsualización:</p>
+            <img [src]="previsualizacion" class="img-thumbnail" alt="Previsualización" style="max-height: 200px;" />
+          </div>
+        </div>
+
+      <!-- Botón Crear -->
+      <div class="col-md-12 d-grid">
+        <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">Crear Producto</button>
+      </div>
+    </form>
+  </fieldset>
+
+  <!-- Tabla de productos -->
+  <div class="my-5">
+    <div class="form-group mb-3">
+      <input type="text" class="form-control border-secondary rounded" placeholder="Buscar..."
+        (input)="filtrarProductos()" [(ngModel)]="terminoBusqueda">
+    </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th>Referencia</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productosFiltrados">
+            <td>{{ producto.referencia_producto }}</td>
+            <td>
+              <img *ngIf="producto.imagen" [src]="producto.imagen" alt="Imagen del producto" width="100px" />
+            </td>
+            <td>{{ producto.nombre_producto }}</td>
+            <td>{{ producto.descripcion_producto }}</td>
+            <td>${{ producto.precio_producto }}</td>
+            <td>
+              <div class="d-flex justify-content-evenly">
+                <i class="bi bi-eye text-primary icono-accion" (click)="abrirModalVer(producto)" title="Ver más"></i>
+                <i class="bi bi-pencil-square text-warning icono-accion" (click)="abrirModalEditar(producto)"
+                  title="Editar"></i>
+                <i class="bi bi-trash text-danger icono-accion" (click)="eliminarProducto(producto.id)"
+                  title="Eliminar"></i>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-    <!-- Garantía -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="garantia" placeholder="Garantía" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('garantia')?.invalid && productoForm.get('garantia')?.touched" class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Marca -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="marca" placeholder="Marca" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('marca')?.invalid && productoForm.get('marca')?.touched" class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Cantidad -->
-    <div class="col-md-3">
-      <input class="form-control" type="number" formControlName="cantidad" placeholder="Cantidad" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched" class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-
-    <!-- Proveedor -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="proovedor" placeholder="Proveedor" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('proovedor')?.invalid && productoForm.get('proovedor')?.touched"
-        class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Fecha de recepción -->
-    <div class="col-md-3">
-      <input class="form-control" type="date" formControlName="recepcion" placeholder="Fecha de recepción" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('recepcion')?.invalid && productoForm.get('recepcion')?.touched"
-        class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Nombre del producto -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="nombre" placeholder="Nombre del producto" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Descripción -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="descripcion" placeholder="Descripción" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched"
-        class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Categoría -->
-    <div class="col-md-3">
-      <label for="categoria" class="form-label">Categoría</label>
-      <select class="form-control" formControlName="categoria" id="categoria">
-        <option value="" disabled selected>Seleccione una categoría</option>
-        <option value="computadoras">Computadoras</option>
-        <option value="televisores">Televisores</option>
-        <option value="electrodomesticos">Electrodomésticos</option>
-        <option value="equipos-reparacion">Equipos de Reparación</option>
-      </select>
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched"
-        class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Precio -->
-    <div class="col-md-2">
-      <input class="form-control" formControlName="precio" type="number" placeholder="Precio" step="0.01"
-        (blur)="formatDecimal('precio')" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <!-- Imagen -->
-    <div class="col-md-3">
-      <input class="form-control" formControlName="imagen" type="file" placeholder="URL de la Imagen" />
-      <!-- Mensaje de advertencia -->
-      <div *ngIf="productoForm.get('imagen')?.invalid && productoForm.get('imagen')?.touched" class="text-warning">
-        Llena este campo
-      </div>
-    </div>
-
-    <div class="col-md-1 d-grid">
-      <button type="submit" class="btn btn-primary">
-        Crear
-      </button>
-    </div>
-  </form>
-</div>
-
-<!-- Tabla de productos -->
-<div class="container table-responsive">
-  <table class="table table-striped table-bordered align-middle">
-    <thead class="table-dark">
-      <tr>
-        <th>Referencia</th>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let producto of productos">
-        <td>{{ producto.referencia }}</td>
-
-        <td>
-          <img [src]="producto.imagen" alt="Imagen del producto" class="img-thumbnail"
-            style="width: 80px; height: auto; object-fit: cover;">
-        </td>
-        <td>{{ producto.nombre }}</td>
-        <td>{{ producto.descripcion }}</td>
-        <td>${{ producto.precio }}</td>
-        <td>
-          <!-- Acciones -->
-          <div class="d-flex justify-content-evenly">
-            <!-- Ver más -->
-            <i class="bi bi-eye text-primary icono-accion" (click)="abrirModalVer(producto)" title="Ver más"></i>
-
-            <!-- Editar -->
-            <i class="bi bi-pencil-square text-warning icono-accion" (click)="abrirModalEditar(producto)"
-              title="Editar">
-            </i>
-
-
-            <!-- Eliminar -->
-            <i class="bi bi-trash text-danger icono-accion" (click)="eliminarProducto(producto.id)"
-              title="Eliminar"></i>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
-<edit-product
-  *ngIf="showModal"
-  [productoSeleccionado]="productoSeleccionado"
-  (close)="closeModal()"
-  (actualizarUsuario)="recargarUsuarios()">
-</edit-product>
-
-
-<edit-product [productoSeleccionado]="productoSeleccionado" *ngIf="showModal1" (close)="showModal1=false">
-</edit-product>
-
-

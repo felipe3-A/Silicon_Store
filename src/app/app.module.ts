@@ -4,6 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -44,6 +48,7 @@ export function tokenGetter() {
     HttpClientModule,
     ComponentsModule,
     RouterModule,
+    NgxPaginationModule,
     AppRoutingModule,
     
   ],
@@ -52,7 +57,6 @@ export function tokenGetter() {
     AdminLayoutComponent,
     MainComponent,
     CartComponent,
-    
     BuyProductComponent,
     SeeUserComponent,
     EditUserComponent,
@@ -70,7 +74,11 @@ export function tokenGetter() {
     
 
   ],
-  providers: [LoginService],
+  providers: [LoginService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true, // Esto indica que puedes tener múltiples interceptores
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

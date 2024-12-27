@@ -4,7 +4,7 @@
     <img src="assets/img/Silicon_logo.png" class="image" routerLink="/store" alt="Logo Silicon" >
   </div>
 
-  <div class="col d-flex flex-column align-items-start">
+  <div class="col d-flex flex-column align-items-start" *ngIf="!isLoggedIn">
     <!-- Texto encima y a la izquierda del buscador -->
     <p class="text-white fw-bold mb-1">Buscar un producto</p>
 
@@ -27,58 +27,67 @@
       <!-- Texto de Bienvenida -->
       <div class="ms-3">
         <p class="mb-0 fw-bold_1">Bienvenido</p>
-        <p class="mb-0">Usuario</p>
+        <p class="mb-0">{{nombre}}</p>
       </div>
     </div>
   </div>
 
 
-  <!-- Contenedor 4: Opciones -->
-  <div class="col d-flex justify-content-center text-dark">
-    <a class="nav-link" routerLink="/cart">
-      <i class="material-icons icon_card">shopping_cart</i>
-      <span class="badge bg-danger">{{ cart.length }}</span>
-    </a>
-  </div>
+<!-- Contenedor 4: Opciones -->
+<div class="col d-flex justify-content-center text-dark" *ngIf="!isLoggedIn">
+  <a class="nav-link" routerLink="/cart">
+    <i class="material-icons icon_card">shopping_cart</i>
+    <span class="badge bg-danger">{{ cart.length }}</span>
+  </a>
 </div>
 
-<!-- Banner para el menú -->
+</div>
+
 <div class="row opc text-center">
   <ul class="list-unstyled d-flex justify-content-center align-items-center gap-4 mb-0">
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text">Productos en Oferta</span>
-    </li>
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text"> Categorías</span>
-    </li>
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text"> Descuentos</span> 
-    </li>
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text"> Catálogo</span>
-     </li>
-     <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text"> Carrito</span>
-     </li>
-   
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text"> Recientes</span >
-    </li>
-
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text"> Pedidos de Reparación</span >
-    </li>
-
-    <li class="menu-item d-flex flex-column align-items-center">
-      <span class="opc_text">Ajustes</span>
-      <ul class="dropdown-menu">
-        <li>Políticas de la empresa</li>
-        <li routerLink="/login">Login</li>
-        <li>Sobre la aplicación</li>
-        <li>Cómo usar nuestra aplicación</li>
-      </ul>
-    </li>
-    
+    <ng-container *ngIf="!isLoggedIn; else userMenu">
+      <!-- Menú para Administradores -->
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Administrar Usuarios</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Administrar Tienda</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Administrar Productos</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Estadísticas</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Pedidos</span>
+      </li>
+    </ng-container>
+    <ng-template #userMenu>
+      <!-- Menú para Usuarios Normales -->
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Productos en Oferta</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Categorías</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Descuentos</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Catálogo</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Carrito</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Recientes</span>
+      </li>
+      <li class="menu-item d-flex flex-column align-items-center">
+        <span class="opc_text">Pedidos de Reparación</span>
+      </li>
+    </ng-template>
   </ul>
 </div>
+
  

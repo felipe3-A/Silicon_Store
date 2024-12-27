@@ -15,11 +15,11 @@ export class ProductService {
 
   // Método para listar los productos
   listarProductos(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/productos`);  // Asumiendo que la ruta de los productos es /api/products
+    return this.http.get(`${this.baseUrl}/api/imagenes/upload`);  // Asumiendo que la ruta de los productos es /api/products
   }
 
   crearProducto(formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/productos`, formData);
+    return this.http.post(`${this.baseUrl}/api/imagenes/upload`, formData); // Asegúrate de que esta URL sea la correcta
   }
   
   eliminarProducto(id: number): Observable<any>{
@@ -30,7 +30,11 @@ export class ProductService {
     return this.http.put<any>(`${this.baseUrl}/api/producto/${id}`, ProductoData);
   }
 
-  
+  // En tu servicio de Angular
+getProductos() {
+  return this.http.get<any[]>('http://localhost:3000/productos'); // Cambia la URL por la correcta
+}
+
   
   
 }

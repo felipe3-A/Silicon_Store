@@ -101,9 +101,7 @@ p {
 
 /* Interacciones al pasar el ratón */
 .menu-item:hover {
-  transform: scale(1.1); /* Aumenta el tamaño ligeramente */
   color: #ffffff; /* Cambia el color del texto */
-  font-weight: 700;
 }
 
 
