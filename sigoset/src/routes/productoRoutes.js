@@ -7,7 +7,7 @@ const upload = require('../uploads/uploads')
 const fs = require('fs');  // Asegúrate de importar 'fs' para guardar archivos
 
 // Ruta para listar productos
-router.get('/api/productos', controller.listarProductos);
+router.get('/api/productos', upload.single('imagen'),controller.listarProductos);
 
 // Ruta para crear un producto
 router.post('/api/productos',upload.single('imagen'), controller.crearProducto);  // Verifica esta ruta

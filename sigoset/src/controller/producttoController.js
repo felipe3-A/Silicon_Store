@@ -11,7 +11,8 @@ const upload = require('../uploads/uploads')
 const controller = {};
 
 // Listar productos
-controller.listarProductos = async (req, res, next) => {
+controller.listarProductos = 
+async (req, res, next) => {
   try {
     const productosList = await listarProductos(); // Llamada al servicio
     res.status(200).json({
@@ -29,7 +30,7 @@ controller.listarProductos = async (req, res, next) => {
 // Crear producto
 controller.crearProducto = async (req, res) => {
   try {
-    const { nombre, descripcion, precio,magen,cantidad,referencia,categoria,garantia,marca,envio,proovedor,recepcion } = req.body;
+    const { nombre, descripcion, precio,cantidad,referencia,categoria,garantia,marca,envio,proovedor,recepcion } = req.body;
     const imagen = req.file ? req.file.filename : null;
   
     if (!imagen) {

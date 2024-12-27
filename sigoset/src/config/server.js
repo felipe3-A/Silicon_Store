@@ -16,10 +16,12 @@ appSigoSet.use(morgan("dev"));
 
 const productosRoutes = require("../routes/productoRoutes"); // Asegúrate de que exista y sea correcto
 const usuariosRoutes = require("../routes/usuarioRoutes")
+const imageRoutes = require("../routes/imageRoutes")
 
 appSigoSet.use(productosRoutes)
 appSigoSet.use(usuariosRoutes)
-
+appSigoSet.use('/api/imagenes', imageRoutes);
+appSigoSet.use("/uploads", express.static(path.join(__dirname, "../../images")));
 
 
 appSigoSet.set("port", process.env.PORT || port);
