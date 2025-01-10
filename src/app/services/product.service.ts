@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
-import { AdminLayoutComponent } from 'app/layouts/admin-layout/admin-layout.component';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +22,21 @@ export class ProductService {
     return this.http.post(`${this.baseUrl}/api/imagenes/upload`, formData); // Asegúrate de que esta URL sea la correcta
   }
   
-  eliminarProducto(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.baseUrl}/api/producto/${id}`)
+  eliminarProducto(id_imagen: number): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/api/imagenes/upload/${id_imagen}`)
   }
 
-  editarProducto(id: number, ProductoData: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/api/producto/${id}`, ProductoData);
+  editarProducto(id_imagen: number, ProductoData: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/api/imagenes/upload/${id_imagen}`, ProductoData);
   }
+
+  listarProductosPorCategoria(id_categoria: number): Observable<any[]> {
+    return this.http.get<any>(`${this.baseUrl}/categoriaProducto/${id_categoria}`).pipe(
+      map((response) => response.data || []) // Devuelve un arreglo vacío si `data` no existe
+    );
+  }
+  
+  
 
   // En tu servicio de Angular
 getProductos() {

@@ -6,10 +6,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./see-product.component.css']
 })
 export class SeeProductComponent {
-  @Input() productoSeleccionado: any = {}; // Recibe el producto seleccionado
-  @Output() close = new EventEmitter<void>(); // Emite un evento para cerrar el modal
+  @Input() productoSeleccionado: any; // Recibe el producto seleccionado
+  @Output() closeModal = new EventEmitter<void>(); // Emite un evento para cerrar el modal
 
-  cerrarModal(): void {
-    this.close.emit(); // Emite el evento al padre para cerrar el modal
+  close(): void {
+    this.closeModal.emit(); // Emite el evento al padre para cerrar el modal
   }
 }

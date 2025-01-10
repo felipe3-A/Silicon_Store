@@ -27,6 +27,11 @@ import { UserComponent } from './views/user/user.component';
 import { EmptyLayoutComponent } from './layouts/empty-layout/empty-layout.component';
 import { LoginService } from './services/usuarios/login-service.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { MarcasComponent } from './views/marcas/marcas.component';
+import { CategoriasComponent } from './views/categorias/categorias.component';
+import { PublicidadComponent } from './views/publicidad/publicidad.component';
+import { VerProductosComponent } from './views/ver-productos/ver-productos.component';
+import { TipoProductoComponent } from './views/tipo-producto/tipo-producto.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -71,6 +76,11 @@ export function tokenGetter() {
     SeeUserComponent,
     UserComponent,
     EmptyLayoutComponent,
+    MarcasComponent,
+    CategoriasComponent,
+    PublicidadComponent,
+    VerProductosComponent,
+    TipoProductoComponent,
     
 
   ],

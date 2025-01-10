@@ -1,26 +1,22 @@
 <div class="custom-modal-overlay">
   <div class="custom-modal-content">
-    <h2>Detalles del Producto</h2>
+    <h3>Detalles del Producto</h3>
     <div class="modal-body">
       <div class="left-column">
-        <p><strong>Nombre:</strong> {{ productoSeleccionado.nombre }}</p>
-        <p><strong>Descripción:</strong> {{ productoSeleccionado.descripcion }}</p>
-        <p><strong>Precio:</strong> {{ productoSeleccionado.precio | currency }}</p>
-        <p><strong>Categoría:</strong> {{ productoSeleccionado.categoria }}</p>
-        <p><strong>Cantidad:</strong> {{ productoSeleccionado.cantidad }}</p>
-        <p><strong>Garantia:</strong> {{ productoSeleccionado.garantia }}</p>
-        <p><strong>Marca:</strong> {{ productoSeleccionado.marca }}</p>
-        <p><strong>Envio Gratis:</strong> {{ productoSeleccionado.envio }}</p>
-        <p><strong>Proovedor:</strong> {{ productoSeleccionado.proovedor }}</p>
-        <p><strong>Fecha de Recepción:</strong> {{ productoSeleccionado.recepcion }}</p>
-
-        
+        <p><strong>Referencia:</strong> {{ productoSeleccionado?.referencia_producto }}</p>
+        <p><strong>Nombre:</strong> {{ productoSeleccionado?.nombre_producto }}</p>
+        <p><strong>Descripción:</strong> {{ productoSeleccionado?.descripcion_producto }}</p>
+        <p><strong>Precio:</strong> {{ productoSeleccionado?.precio_producto | currency }}</p>
       </div>
       <div class="right-column">
-        <img [src]="productoSeleccionado.imagen" alt="Imagen del Producto" class="product-image">
+        <img
+          *ngIf="productoSeleccionado?.imagen"
+          [src]="productoSeleccionado?.imagen"
+          alt="Imagen del producto"
+          class="product-image"
+        />
       </div>
     </div>
-
-    <button (click)="cerrarModal()" class="btn-close-modal">Cerrar</button>
+    <button class="btn-close-modal" (click)="close()">Cerrar</button>
   </div>
 </div>

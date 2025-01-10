@@ -1,167 +1,79 @@
 .orange {
-  background-color: #04B2D9;
-  width: 100%;
-  height: 15vh; /* Altura total de la barra */
+  background-color: #0583C1;
+  right: 20px;
+  left: 10px;
 }
 
 .image {
-  width: 60%; /* Ajuste dinámico del tamaño */
-  max-width: 100px; /* Evita que sea demasiado grande */
+  width: 100%;
+  max-width: 190px;
+  padding: 0;
+}
+a {
+  font-family: 'Poppins', 'sans-serif';
 }
 
-/* Contenedor del buscador */
+.user-icon {
+  font-size: 3rem;
+  color: white;
+}
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  font-size: 0.75rem;
+}
+
+.welcome{
+  background-color: #ffff;
+  color: #04B2D9;
+  font-weight: bolder;
+  font-family: 'Poppins', 'sans-serif';
+  font-size: 20px;
+}
 .search_input {
-  width: 320px; /* Ancho del buscador */
-  height: 40px; /* Altura del buscador */
-  border-radius: 20px; /* Bordes redondeados */
-  background-color: white; /* Fondo blanco */
+  width: 380px;
+  height: 40px;
+  border-radius: 15px;
+  background-color: white;
   display: flex;
   align-items: center;
-  padding: 0 10px; /* Espaciado interno */
-  border: 1px solid #ddd; /* Borde claro */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para realce */
+  top: 5px;
+  padding: 0 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Input del buscador */
 .buscador {
-  flex: 1; /* Ocupa todo el espacio disponible */
+  flex: 1;
   border: none;
   outline: none;
-  color: black; /* Color del texto */
+  color: black;
   font-size: 1rem;
-  padding: 0 10px; /* Espaciado interno */
-  background: transparent; /* Fondo transparente */
+  padding: 0 10px;
+  background: transparent;
 }
 
-/* Ícono del buscador */
 .buscador-icono {
-  font-size: 1.2rem; /* Tamaño del ícono */
-  color: #04B2D9; /* Color anaranjado */
-  cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
-}
-
-/* Texto encima del buscador */
-.fw-bold {
-  font-weight: 700; /* Negrita */
-  font-size: 1rem; /* Ajuste del tamaño del texto */
-  margin-bottom: 0.2rem; /* Espacio entre texto y buscador */
-  margin-left: 20px;
-}
-
-/* Ícono de usuario */
-.user-icon {
-  font-size: 3rem; /* Tamaño grande */
-  color: white; /* Color blanco */
-
-}
-
-/* Texto de Bienvenida */
-.fw-bold_1 {
-  font-size: 1.5rem; /* Texto más grande para 'Bienvenido' */
-  margin-right: 20px;
-  font-weight: bolder;
-
-}
-
-p {
-  font-size: 1rem; /* Tamaño estándar */
-  margin-top: -10px;
-}
-
-.icon_card{
-  color: white;
-  font-size: 4.0rem;
-}
-
-/*estilos para el menu de opciones*/
-/* Estilos para el banner del menú */
-.opc {
-  background-color: #339AF0; /* Color de fondo */
-  padding: 10px 0; /* Espaciado */
-  color: white; /* Texto blanco */
-}
-
-/* Estilo general de los elementos del menú */
-.menu-item {
-  cursor: pointer; /* Cursor interactivo */
-  transition: transform 0.3s ease, color 0.3s ease; /* Animación de interacción */
-}
-
-.menu-item span {
-  font-size: 0.9rem; /* Tamaño de texto */
-  margin-top: 5px; /* Separación entre ícono y texto */
-}
-
-/* Íconos del menú */
-.menu-icon {
-  font-size: 1.5rem; /* Tamaño de los íconos */
-  color: white; /* Color blanco */
-  transition: color 0.3s ease; /* Animación de color */
-}
-
-/* Interacciones al pasar el ratón */
-.menu-item:hover {
-  color: #ffffff; /* Cambia el color del texto */
-}
-
-
-
-.opc_text{
-  margin: 2px;
-}
-
-.menu-item {
-  position: relative;
+  font-size: 1.2rem;
+  color: #04B2D9;
   cursor: pointer;
 }
 
-
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  list-style: none;
-  background-color: white;
-  border: 1px solid #ddd;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
-  margin: 0;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
-  transform: translateY(-10px);
-  z-index: 100;
+.icon_card {
+  font-size: 3rem;
+  color: white;
+  position: relative;
 }
 
-.dropdown-menu li {
-  padding: 8px 16px;
-  font-size: 14px;
-  color: #333;
+.opc_nbn {
+font-size: 15px;
+font-family: 'Poppins', 'sans-serif';
+font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.dropdown-menu li:hover {
-  background-color: #f2f2f2;
+.opc_nbn:hover {
+  color: #FFD700;
 }
-
-.menu-item:hover .dropdown-menu {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  list-style: none;
-  background-color: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
-  margin: 0;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
-  transform: translateY(-10px);
-  z-index: 9999; /* Asegúrate de que esté por encima */
-}
-

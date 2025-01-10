@@ -1,93 +1,37 @@
 <div class="d-flex justify-content-between align-items-center vh-15 orange px-3">
-  <!-- Contenedor 1: Logo -->
-  <div class="col d-flex justify-content-center">
-    <img src="assets/img/Silicon_logo.png" class="image" routerLink="/store" alt="Logo Silicon" >
+  <!-- Contenedor Izquierdo: Logo -->
+  <div class="d-flex flex-column align-items-center">
+    <img src="assets/img/logo_tienda.png" class="image mt-1" alt="Logo Silicon">
+    <a href="/store" class="text-white opc_nbn text-decoration-none fw-bold mb-3">Visítanos</a>
   </div>
+  
+  <!-- Contenedor Central: Buscador y Navegación -->
+  <div class="d-flex flex-column align-items-center">
+   
+    <ul class="d-flex list-unstyled gap-4 mt-2 mb-2">
+      <li><a href="#" class="opc_nbn text-white">Categorías</a></li>
+      <li><a href="#" class="opc_nbn text-white">Descuentos</a></li>
+      <li><a href="#" class="opc_nbn text-white">Catálogo</a></li>
+      <li><a href="#" class="opc_nbn text-white">Carrito</a></li>
+      <li><a href="#" class="opc_nbn text-white">Marcas</a></li>
 
-  <div class="col d-flex flex-column align-items-start" *ngIf="!isLoggedIn">
-    <!-- Texto encima y a la izquierda del buscador -->
-    <p class="text-white fw-bold mb-1">Buscar un producto</p>
-
-    <!-- Barra del buscador -->
+    </ul>
     <div class="search_input d-flex align-items-center">
-      <input type="search" class="buscador" />
+      <input type="search" class="buscador" placeholder="Buscar Producto..." />
       <i class="bi bi-search buscador-icono"></i>
     </div>
   </div>
 
-
-
-  <!-- Contenedor 3: Texto o Menú -->
-  <div class="col d-flex justify-content-center align-items-center text-white flex-column">
-    <!-- Contenedor 3 principal -->
-    <div class="d-flex align-items-center">
-      <!-- Ícono de usuario -->
-      <i class="bi bi-person-circle user-icon"></i>
-
-      <!-- Texto de Bienvenida -->
-      <div class="ms-3">
-        <p class="mb-0 fw-bold_1">Bienvenido</p>
-        <p class="mb-0">{{nombre}}</p>
+  <!-- Contenedor Derecho: Bienvenida y Carrito -->
+  <div class="d-flex align-items-center gap-4">
+    <div class="text-white text-center">
+      <div class="welcome">
+              <p class="mb-0 fw-bold">Bienvenido</p>
       </div>
+      <a href="#" class="text-white text-decoration-none">Pedidos De Reparación</a>
+      <span class="mx-1">|</span>
+      <a href="#" class="text-white text-decoration-none">Ajustes</a>
     </div>
+   
   </div>
-
-
-<!-- Contenedor 4: Opciones -->
-<div class="col d-flex justify-content-center text-dark" *ngIf="!isLoggedIn">
-  <a class="nav-link" routerLink="/cart">
-    <i class="material-icons icon_card">shopping_cart</i>
-    <span class="badge bg-danger">{{ cart.length }}</span>
-  </a>
 </div>
-
-</div>
-
-<div class="row opc text-center">
-  <ul class="list-unstyled d-flex justify-content-center align-items-center gap-4 mb-0">
-    <ng-container *ngIf="!isLoggedIn; else userMenu">
-      <!-- Menú para Administradores -->
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Administrar Usuarios</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Administrar Tienda</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Administrar Productos</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Estadísticas</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Pedidos</span>
-      </li>
-    </ng-container>
-    <ng-template #userMenu>
-      <!-- Menú para Usuarios Normales -->
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Productos en Oferta</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Categorías</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Descuentos</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Catálogo</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Carrito</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Recientes</span>
-      </li>
-      <li class="menu-item d-flex flex-column align-items-center">
-        <span class="opc_text">Pedidos de Reparación</span>
-      </li>
-    </ng-template>
-  </ul>
-</div>
-
- 

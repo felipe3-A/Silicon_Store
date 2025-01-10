@@ -23,18 +23,43 @@
 
       <!-- Garantía -->
       <div class="col-md-3">
-        <label for="garantia" class="form-label">Garantía</label>
+        <label for="garantia" class="form-label">Tiempo de Garantía</label>
         <input id="garantia" class="form-control" formControlName="garantia_producto" placeholder="Ej: 12 meses" />
         <div *ngIf="productoForm.get('garantia')?.invalid && productoForm.get('garantia')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
 
+        <!-- Categoría -->
+        <div class="col-md-3">
+          <label for="id_categoria" class="form-label">Categoría</label>
+          <select id="id_categoria" class="form-control" formControlName="id_categoria">
+            <option value="" disabled selected>Seleccione una categoría</option>
+            <option *ngFor="let categoria of categoriasForm"[value]="categoria.id_categoria">
+              {{categoria.categoria}}
+            </option>
+    
+          </select>
+          <div *ngIf="productoForm.get('id_categoria')?.invalid && productoForm.get('id_categoria')?.touched" class="text-danger">
+            Este campo es obligatorio
+          </div>
+        </div>
+
       <!-- Marca -->
       <div class="col-md-3">
-        <label for="marca" class="form-label">Marca</label>
-        <input id="marca" class="form-control" formControlName="marca_producto" placeholder="Ej: Samsung" />
-        <div *ngIf="productoForm.get('marca')?.invalid && productoForm.get('marca')?.touched" class="text-danger">
+        <label for="id_marca" class="form-label">Seleccione la marca</label>
+        <select
+        id="id_marca"
+        class="form-control"
+        formControlName="id_marca"
+      >
+        <option value="" disabled selected>Seleccione una marca</option>
+        <option *ngFor="let marca of marcasForm" [value]="marca.id_marca">
+          {{ marca.marca }}
+        </option>
+      </select>
+
+        <div *ngIf="productoForm.get('id_marca')?.invalid && productoForm.get('id_marca')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
@@ -67,20 +92,7 @@
         </div>
       </div>
 
-      <!-- Categoría -->
-      <div class="col-md-3">
-        <label for="categoria" class="form-label">Categoría</label>
-        <select id="categoria" class="form-control" formControlName="categoria_producto">
-          <option value="" disabled selected>Seleccione una categoría</option>
-          <option value="computadoras">Computadoras</option>
-          <option value="televisores">Televisores</option>
-          <option value="electrodomesticos">Electrodomésticos</option>
-          <option value="equipos-reparacion">Equipos de Reparación</option>
-        </select>
-        <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched" class="text-danger">
-          Este campo es obligatorio
-        </div>
-      </div>
+    
 
       <!-- Precio -->
       <div class="col-md-3">
@@ -144,7 +156,7 @@
                 <i class="bi bi-eye text-primary icono-accion" (click)="abrirModalVer(producto)" title="Ver más"></i>
                 <i class="bi bi-pencil-square text-warning icono-accion" (click)="abrirModalEditar(producto)"
                   title="Editar"></i>
-                <i class="bi bi-trash text-danger icono-accion" (click)="eliminarProducto(producto.id)"
+                <i class="bi bi-trash text-danger icono-accion" (click)="eliminarProducto(producto.id_imagen)"
                   title="Eliminar"></i>
               </div>
             </td>
@@ -154,3 +166,21 @@
     </div>
   </div>
 </div>
+
+<!-- 
+<div class="modal" [class.show]="showModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-see-product [productoSeleccionado]="productoSeleccionado" (closeModal)="closeModal()"></app-see-product>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" [class.show]="abrirModaEditar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <edit-product [productoSeleccionado]="productoSeleccionado" (closeModal)="closeModal()"
+        (actualizarProducto)="actualizarproducto()"></edit-product>
+    </div>
+  </div> -->

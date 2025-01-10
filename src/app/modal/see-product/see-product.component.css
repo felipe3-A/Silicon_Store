@@ -11,6 +11,7 @@
   opacity: 0; /* Inicia invisible */
   visibility: hidden; /* Inicia oculto */
   animation: fadeIn 0.5s ease-out forwards; /* Animación de aparición */
+  z-index: 1000; /* Asegura que el modal esté sobre otros elementos */
 }
 
 .custom-modal-content {
@@ -24,6 +25,7 @@
   opacity: 0; /* Inicia invisible */
   transform: translateY(-20px); /* Inicia un poco arriba */
   animation: slideIn 0.5s ease-out forwards 0.2s; /* Desplazamiento hacia abajo */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añade sombra al modal */
 }
 
 @keyframes fadeIn {
@@ -52,6 +54,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .left-column {
@@ -70,15 +73,18 @@
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn-close-modal {
   background-color: #ff8800;
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  align-self: center; /* Centra el botón en la columna */
+  transition: background-color 0.3s ease;
 }
 
 .btn-close-modal:hover {

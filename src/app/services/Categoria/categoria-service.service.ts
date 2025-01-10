@@ -1,0 +1,32 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CategoriaServiceService {
+  private baseUrl = 'http://localhost:3000';  // Cambia esto a la URL de tu API
+
+  constructor(private http: HttpClient) { }
+
+  // Método para listar todas las categorías
+  listarCategorias(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/categoria_upload`);
+  }
+
+  // Método para crear una nueva categoría
+  crearCategorias(categoria: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/categoria_upload`, categoria);
+  }
+
+  // Método para editar una categoría
+  editarCategoria(id_categoria: number, categoriaData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/categoria_upload/${id_categoria}`, categoriaData);
+  }
+
+  // Método para eliminar una categoría
+  eliminarCategoria(id_categoria: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/categoria_upload/${id_categoria}`);
+  }
+}

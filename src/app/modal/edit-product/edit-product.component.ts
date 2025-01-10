@@ -9,10 +9,9 @@ import { ProductService } from 'app/services/product.service';
 })
 export class EditProductComponent {
 
-  @Input() productoSeleccionado: any = {} 
+  @Input() productoSeleccionado: any
   @Output() closeModal = new EventEmitter<void>();
   @Output() actualizarProducto = new EventEmitter<void>();
-  @Output() close = new EventEmitter<void>(); // Emite un evento para cerrar el modal
 
   constructor(private productoService: ProductService) { }
 
@@ -33,24 +32,23 @@ export class EditProductComponent {
   
     // Crear el objeto del producto actualizado
     const productoActualizado = {
-      nombre: this.productoSeleccionado.nombre,
-      descripcion: this.productoSeleccionado.descripcion,
-      precio: parseFloat(this.productoSeleccionado.precio.trim()),  // Asegurarse de que el precio esté limpio
+      nombre_producto: this.productoSeleccionado.nombre_producto,
+      descripcion_producto: this.productoSeleccionado.descripcion_producto,
+      precio_producto: parseFloat(this.productoSeleccionado.precio_producto.trim()),  // Asegurarse de que el precio esté limpio
 
       imagen: this.productoSeleccionado.imagen || '',  // Usar la imagen actual si no se especifica una nueva
-      referencia: this.productoSeleccionado.referencia,
-      categoria: this.productoSeleccionado.categoria,
-      cantidad: this.productoSeleccionado.cantidad,
-      garantia: this.productoSeleccionado.garantia,
-      marca: this.productoSeleccionado.marca,
-      envio: this.productoSeleccionado.envio,
-      prooverdor: this.productoSeleccionado.proovedor,
-      recepcion: this.productoSeleccionado.recepcion
+      referencia_producto: this.productoSeleccionado.referencia_producto,
+      categoria_producto: this.productoSeleccionado.categoria_producto,
+      cantidad_producto: this.productoSeleccionado.cantidad_producto,
+      garantia_producto: this.productoSeleccionado.garantia_producto,
+      marca_producto: this.productoSeleccionado.marca_producto,
+      envio_producto: this.productoSeleccionado.envio_producto,
+
 
     };
   
     // Llamada al servicio para actualizar el producto
-    this.productoService.editarProducto(this.productoSeleccionado.id, productoActualizado).subscribe(
+    this.productoService.editarProducto(this.productoSeleccionado.id_producto, productoActualizado).subscribe(
       response => {
         console.log('Producto actualizado:', response);
         this.closeModal.emit();  // Cerrar el modal
@@ -71,15 +69,18 @@ export class EditProductComponent {
         });
       }
     );
+    this.close();
   }
   
   
   
 
   // Método para cerrar el modal
-  cerrarModal(): void {
-    this.close.emit(); // Emite el evento al padre para cerrar el modal
+  close(): void {
+    this.closeModal.emit();
+    alert("modal cerrado")
   }
+
 
   ngOnInit(): void {
     // Se puede agregar lógica adicional si es necesario

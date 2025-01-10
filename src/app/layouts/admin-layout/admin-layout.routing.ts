@@ -17,6 +17,11 @@ import { BuyProductComponent } from 'app/views/buy-product/buy-product.component
 import { LoginComponent } from 'app/views/login/login.component';
 import { MenuAdminComponent } from 'app/views/menu-admin/menu-admin.component';
 import { UserComponent } from 'app/views/user/user.component';
+import { MarcasComponent } from 'app/views/marcas/marcas.component';
+import { PublicidadComponent } from 'app/views/publicidad/publicidad.component';
+import { VerProductosComponent } from 'app/views/ver-productos/ver-productos.component';
+import { CategoriasComponent } from 'app/views/categorias/categorias.component';
+import { TipoProductoComponent } from 'app/views/tipo-producto/tipo-producto.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -79,6 +84,11 @@ export const AdminLayoutRoutes: Routes = [
     {path:'buyProduct', component: BuyProductComponent},
     {path:'main', component: MenuAdminComponent},
     {path:'users', component: UserComponent},
+    {path:'marcas', component: MarcasComponent},
+    {path:'publicidad', component: PublicidadComponent},
+    {path:'products', component: VerProductosComponent},
+    {path:'category', component: CategoriasComponent},
+    {path: 'tipos', component:TipoProductoComponent}
 
 
     // {path:'login', component: LoginComponent},

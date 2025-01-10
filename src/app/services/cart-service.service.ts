@@ -35,4 +35,8 @@ export class CartServiceService {
     // Filtramos el carrito para eliminar el producto especificado
     this.carrito = this.carrito.filter(p => p.id !== producto.id);
   }
+
+  obtenerPublicidadporTipo(){
+    
+  }
 }
