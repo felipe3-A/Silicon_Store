@@ -22,6 +22,9 @@ import { PublicidadComponent } from 'app/views/publicidad/publicidad.component';
 import { VerProductosComponent } from 'app/views/ver-productos/ver-productos.component';
 import { CategoriasComponent } from 'app/views/categorias/categorias.component';
 import { TipoProductoComponent } from 'app/views/tipo-producto/tipo-producto.component';
+import { UnidadProductoComponent } from 'app/views/unidad-producto/unidad-producto.component';
+import { GruposGeneralesComponent } from 'app/views/grupos-generales/grupos-generales.component';
+import { ProductosGruposComponent } from 'app/views/productos-grupos/productos-grupos.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -86,10 +89,14 @@ export const AdminLayoutRoutes: Routes = [
     {path:'users', component: UserComponent},
     {path:'marcas', component: MarcasComponent},
     {path:'publicidad', component: PublicidadComponent},
-    {path:'products', component: VerProductosComponent},
     {path:'category', component: CategoriasComponent},
-    {path: 'tipos', component:TipoProductoComponent}
+    {path: 'tipos', component:TipoProductoComponent},
 
+    {path: 'grupos', component:GruposGeneralesComponent},
+    { path: 'products/:id_categoria', component: VerProductosComponent },
+    {path:'product/:id_imagen', component: UnidadProductoComponent},
+
+    {path:'groups/:id_grupo', component:ProductosGruposComponent}
 
     // {path:'login', component: LoginComponent},
 ];

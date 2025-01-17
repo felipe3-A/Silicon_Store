@@ -1,0 +1,35 @@
+body {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .card-text {
+    margin-bottom: 0.8rem;
+  }
+  
+  h2 {
+    color: #0056b3; /* Azul primario */
+  }
+  
+  .text-success {
+    color: #28a745 !important; /* Verde elegante */
+  }
+  
+  button {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .clickable-image {
+    width: 100%;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  
+  .clickable-image:hover {
+    border-color: #007bff;
+  }
+  

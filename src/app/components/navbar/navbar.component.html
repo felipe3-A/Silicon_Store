@@ -1,37 +1,88 @@
+<div class="container-fluid contenedor-cards" style="background-color: #2c2c2c;">
+  <div class="card-container">
+    <div class="card_row">
+      <i class="bi bi-person-circle icon-card"></i>
+      <p class="title_card">Atención al cliente</p>
+      <h3>24434343 - 2433533</h3>
+    </div>
+    <div class="card_row">
+      <i class="bi bi-whatsapp icon-card"></i>
+      <p class="title_card">WhatsApp</p>
+      <h3>3244256345</h3>
+    </div>
+    <div class="card_row">
+      <i class="bi bi-house-door icon-card"></i>
+      <p class="title_card">Dirección</p>
+      <h3>Cl. 6 # 15-35, Popayán, Cauca</h3>
+    </div>
+    <div class="card_row">
+      <i class="bi bi-telephone icon-card"></i>
+      <p class="title_card">Teléfonos</p>
+      <h3>3267364773 - 42425362653</h3>
+    </div>
+    <div class="card_row">
+      <i class="bi bi-person-check icon-card"></i>
+      <p class="title_card">Atención al Cliente</p>
+      <h3>AtencionCliente.silicon.com.co</h3>
+    </div>
+  </div>
+</div>
+
+
 <div class="d-flex justify-content-between align-items-center vh-15 orange px-3">
   <!-- Contenedor Izquierdo: Logo -->
-  <div class="d-flex flex-column align-items-center">
-    <img src="assets/img/logo_tienda.png" class="image mt-1" alt="Logo Silicon">
-    <a href="/store" class="text-white opc_nbn text-decoration-none fw-bold mb-3">Visítanos</a>
-  </div>
-  
+ <div class="d-flex align-items-center gap-3">
+  <img src="assets/img/silicon_store_negativo.png" class="image" alt="Logo Silicon">
+</div>
+
+
   <!-- Contenedor Central: Buscador y Navegación -->
   <div class="d-flex flex-column align-items-center">
-   
+    <div class="searchIcons">
+      <div class="search_input d-flex align-items-center">
+        <input type="search" class="buscador" placeholder="Buscar Producto..." />
+        <i class="bi bi-search buscador-icono"></i>
+      </div>
+
+      <div class="images">
+
+        <img src="assets/img/Carrusel_imagenes 1.png" alt="" class="icon_marca">
+        <img src="assets/img/lg.png" alt="" class="icon_marca">
+        <img src="assets/img/panasonic.png"  alt="" class="icon_marca" style="width: 90px;">
+          <img src="assets/img/chalenger.png" alt=""class="icon_marca"style="width: 90px;">
+          <img src="assets/img/samsung.png" alt=""class="icon_marca"style="width: 90px;">
+
+      </div>
+    </div>
+
+
+
+
     <ul class="d-flex list-unstyled gap-4 mt-2 mb-2">
-      <li><a href="#" class="opc_nbn text-white">Categorías</a></li>
+      <li><a href="#" class="opc_nbn text-white">Nuestras Marcas</a></li>
+      <li><a href="#" class="opc_nbn text-white">Categorias</a></li>
       <li><a href="#" class="opc_nbn text-white">Descuentos</a></li>
-      <li><a href="#" class="opc_nbn text-white">Catálogo</a></li>
+      <li><a href="#" class="opc_nbn text-white">Catalogo</a></li>
       <li><a href="#" class="opc_nbn text-white">Carrito</a></li>
-      <li><a href="#" class="opc_nbn text-white">Marcas</a></li>
+      <li><a href="#" class="opc_nbn text-white">Pedidos de Reparación</a></li>
+      <li><a href="#" class="opc_nbn text-white">Ajustes</a></li>
+      <li><a href="#" class="opc_nbn text-white">Atención Presecial</a></li>
+
+
+
 
     </ul>
-    <div class="search_input d-flex align-items-center">
-      <input type="search" class="buscador" placeholder="Buscar Producto..." />
-      <i class="bi bi-search buscador-icono"></i>
-    </div>
+
   </div>
 
   <!-- Contenedor Derecho: Bienvenida y Carrito -->
-  <div class="d-flex align-items-center gap-4">
-    <div class="text-white text-center">
-      <div class="welcome">
-              <p class="mb-0 fw-bold">Bienvenido</p>
-      </div>
-      <a href="#" class="text-white text-decoration-none">Pedidos De Reparación</a>
-      <span class="mx-1">|</span>
-      <a href="#" class="text-white text-decoration-none">Ajustes</a>
+  <div class="d-flex align-items-center gap-4 justify-content-center">
+    <div class="text-white text-center carrito">
+      <!-- Icono del carrito -->
+      <i class="fas fa-shopping-cart carrito-icon" (click)="abrirCarrito()"></i>
+      <p class="mb-0">Mi carrito</p>
+      <span class="badge bg-danger" *ngIf="cart.length > 0">{{ cart.length }}</span> <!-- Contador de productos -->
     </div>
-   
   </div>
+  
 </div>

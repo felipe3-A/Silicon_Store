@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { CategoriaServiceService } from "app/services/Categoria/categoria-service.service";
 import { MarcasServiceService } from "app/services/Marcas/marcas-service.service";
 import { response } from "express";
+import { GrupoServiceService } from "app/services/Grupo/grupo-service.service";
 
 @Component({
   selector: "admin-product",
@@ -19,7 +20,10 @@ export class AdminProductComponent implements OnInit {
 
   productos = [];
   productosFiltrados: any[] = [];
-  productoForm: FormGroup;
+  productoStep1Form: FormGroup;
+  productoStep2Form: FormGroup;
+  step: number = 1; // Para manejar los pasos
+
   productoSeleccionado: any = {};
   previsualizacion: string = "";
   archivos: any[] = [];
@@ -31,8 +35,12 @@ export class AdminProductComponent implements OnInit {
   idProductoAEditar: number | null = null;
   pageSize: number = 10;
   showModal: boolean = false; // Modal de ver
-  categoriasForm= []
-  marcasForm = []
+  categoriasForm = [];
+  gruposForm = [];
+
+  marcasForm = [];
+  grupos = [];
+  loading: boolean = false; // Variable para controlar el estado de carga
 
   constructor(
     private fb: FormBuilder,
@@ -41,14 +49,23 @@ export class AdminProductComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
     private serviceCategoria: CategoriaServiceService,
-    private marcaService : MarcasServiceService,
+    private marcaService: MarcasServiceService,
+    private grupoService: GrupoServiceService
   ) {}
 
   ngOnInit(): void {
-    this.productoForm = this.fb.group({
+
+    this.productoStep1Form = this.fb.group({
       nombre_producto: ["", [Validators.required]],
-      descripcion_producto: ["", [Validators.required]],
       url_imagen: ["", [Validators.required]],
+     
+      id_grupo: ["", [Validators.required]],
+
+      
+   
+    });
+    this.productoStep2Form = this.fb.group({
+      descripcion_producto: ["", [Validators.required]],
       cantidad_producto: [
         "",
         [Validators.required, Validators.pattern(/^\d+$/)],
@@ -57,6 +74,7 @@ export class AdminProductComponent implements OnInit {
       referencia_producto: ["", [Validators.required]],
       garantia_producto: ["", [Validators.required]],
       id_marca: ["", [Validators.required]],
+
       envio_producto: ["", [Validators.required]],
       precio_producto: [
         "",
@@ -70,34 +88,61 @@ export class AdminProductComponent implements OnInit {
     this.listarProductos();
     this.listarCategorias();
     this.listarMarcas();
+    this.listarGrupos();
 
-    this.showModal=false;
-    this.mostrarModalEditar=false;
+    this.showModal = false;
+    this.mostrarModalEditar = false;
   }
 
-  listarMarcas(): void{
+  capturarGaleria(event: any): void {
+    const archivos = event.target.files;
+    this.archivos = [];
+    for (let i = 0; i < archivos.length; i++) {
+      const archivo = archivos[i];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.archivos.push({ url: e.target.result, file: archivo });
+      };
+      reader.readAsDataURL(archivo);
+    }
+  }
+  listarMarcas(): void {
     this.marcaService.listarMarcas().subscribe(
-      (response)=>{
+      (response) => {
         console.log("MARCAS listadas", response.data);
-        this.marcasForm = response.data
+        this.marcasForm = response.data;
       },
-       (error) => { // Cambiado para que el manejo del error sea correcto
+      (error) => {
+        // Cambiado para que el manejo del error sea correcto
         console.log("No se pudieron listar las marcas", error);
       }
-    )
+    );
+  }
+
+  listarGrupos(): void {
+    this.grupoService.listarGrupos().subscribe(
+      (response) => {
+        console.log("Grupos listados", response.data);
+        this.gruposForm = response.data;
+      },
+      (error) => {
+        // Cambiado para que el manejo del error sea correcto
+        console.log("No se pudieron listar los Grupos", error);
+      }
+    );
   }
 
   listarCategorias(): void {
     this.serviceCategoria.listarCategorias().subscribe(
-      (response)=>{
+      (response) => {
         console.log("Categorias Listadas:", response.data);
         this.categoriasForm = response.data;
       },
-      (error) => { // Cambiado para que el manejo del error sea correcto
+      (error) => {
+        // Cambiado para que el manejo del error sea correcto
         console.log("No se pudieron listar las categorias", error);
       }
-    )
-
+    );
   }
   listarProductos(): void {
     this.productService.listarProductos().subscribe(
@@ -171,35 +216,39 @@ export class AdminProductComponent implements OnInit {
       }
     });
 
-  crearProducto(): void {
-    if (this.productoForm.invalid) {
-      this.productoForm.markAllAsTouched();
-      return;
-    }
-
-    const formData = new FormData();
-    if (this.archivos.length > 0) {
-      formData.append("image", this.archivos[0]);
-    }
-
-    Object.keys(this.productoForm.controls).forEach((key) => {
-      const controlValue = this.productoForm.get(key)?.value;
-      console.log(key, controlValue); // Verifica que no esté siendo undefined
-      if (controlValue === undefined || controlValue === "") {
-        formData.append(key, null);
+    crearProducto(): void {
+      if (this.productoStep2Form.valid) {
+        const formData = new FormData();
+        const datosPaso1 = this.productoStep1Form.value;
+        const datosPaso2 = this.productoStep2Form.value;
+  
+        Object.keys(datosPaso1).forEach((key) => {
+          formData.append(key, datosPaso1[key]);
+        });
+        Object.keys(datosPaso2).forEach((key) => {
+          formData.append(key, datosPaso2[key]);
+        });
+  
+        this.productService.crearProducto(formData).subscribe(() => {
+          alert("Producto creado con éxito");
+          this.step = 1;
+          this.productoStep1Form.reset();
+          this.productoStep2Form.reset();
+          this.archivos = [];
+        });
       } else {
-        formData.append(key, controlValue); // Si el valor es undefined, agregar null
+        alert("Completa todos los campos");
       }
+    }
+  // En tu componente AdminProductComponent
+  crearGaleria(): void {
+    const formData = new FormData();
+    this.archivos.forEach((archivo) => {
+      formData.append("imagenes[]", archivo.file);
     });
-    this.productService.crearProducto(formData).subscribe({
-      next: () => {
-        Swal.fire("Éxito", "Producto creado correctamente", "success");
-        this.listarProductos();
-        this.productoForm.reset();
-        this.archivos = [];
-        this.previsualizacion = "";
-      },
-      error: () => Swal.fire("Error", "No se pudo crear el producto", "error"),
+    this.productService.crearGaleria(formData).subscribe((response: any) => {
+      const idGaleria = response.data.id;
+      this.productoStep2Form.addControl("id_galeria", this.fb.control(idGaleria));
     });
   }
 

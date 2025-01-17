@@ -20,6 +20,14 @@ export class NavbarComponent implements OnInit {
   nombre: string = '';
   private toggleButton: any;
   cart: any[] = []; // Propiedad para almacenar los datos del carrito
+  messages: string[] = [
+    "Somos Silicon",
+    "Innovación a tu alcance",
+    "Calidad y confianza",
+    "Tu tienda de tecnología",
+    "Experiencia y servicio"
+  ];
+  currentMessage: string = this.messages[0];
 
   constructor(
     location: Location,
@@ -30,8 +38,6 @@ export class NavbarComponent implements OnInit {
     private tokenvalidationService: TokenValidationService,
     private cartService: CartServiceService, // Inyecta el servicio del carrito
     private authService: AuthServiceService,
-
-
   ) {
     this.location = location;
   }
@@ -39,13 +45,20 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     const navbar: HTMLElement = this.element.nativeElement;
     
-    this.authService.getUserRole().subscribe((role: string) =>{
-      this.isAdmin = role === 'admin'
-    })
+    this.authService.getUserRole().subscribe((role: string) => {
+      this.isAdmin = role === 'admin';
+    });
+
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe(() => {
       this.closeMobileMenu();
     });
+
+    this.cartService.cartUpdated.subscribe(cart => {
+      this.cart = cart; // Actualiza el carrito en el componente
+    });
+  
+
     this.loginService.loginStatusChanged.subscribe(status => {
       this.isLoggedIn = true;
       localStorage.setItem('isLoggedIn', JSON.stringify(status));
@@ -56,61 +69,73 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    
-
+    // Inicializar el cambio de mensajes
+    this.startMessageRotation();
 
     // Inicializar el carrito
     this.cart = this.cartService.obtenerCarrito();
   }
 
+
+    abrirCarrito() {
+      this.router.navigate(['/cart']); // Usa paréntesis para llamar a la función
+    }
+  
+
+  startMessageRotation() {
+    setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * this.messages.length);
+      this.currentMessage = this.messages[randomIndex];
+    }, 3000);
+  }
+
   closeMobileMenu() {
-    var $layer: any = document.getElementsByClassName('close-layer')[0];
+    const $layer: any = document.getElementsByClassName('close-layer')[0];
     if ($layer) {
       $layer.remove();
       this.mobile_menu_visible = 0;
     }
   }
 
-
-  
   toggleMobileMenu() {
-    var $toggle = document.getElementsByClassName('navbar-toggler')[0];
+    const $toggle = document.getElementsByClassName('navbar-toggler')[0];
     const body = document.getElementsByTagName('body')[0];
 
-    if (this.mobile_menu_visible == 1) {
+    if (this.mobile_menu_visible === 1) {
       body.classList.remove('nav-open');
+      const $layer: any = document.getElementsByClassName('close-layer')[0];
       if ($layer) {
         $layer.remove();
       }
-      setTimeout(function() {
+      setTimeout(() => {
         $toggle.classList.remove('toggled');
       }, 400);
       this.mobile_menu_visible = 0;
     } else {
-      setTimeout(function() {
+      setTimeout(() => {
         $toggle.classList.add('toggled');
       }, 430);
 
-      var $layer = document.createElement('div');
+      const $layer = document.createElement('div');
       $layer.setAttribute('class', 'close-layer');
 
       if (body.querySelectorAll('.main-panel')) {
         document.getElementsByClassName('main-panel')[0].appendChild($layer);
       }
 
-      setTimeout(function() {
+      setTimeout(() => {
         $layer.classList.add('visible');
       }, 100);
 
-      $layer.onclick = function() {
+      $layer.onclick = () => {
         body.classList.remove('nav-open');
         this.mobile_menu_visible = 0;
         $layer.classList.remove('visible');
-        setTimeout(function() {
+        setTimeout(() => {
           $layer.remove();
           $toggle.classList.remove('toggled');
         }, 400);
-      }.bind(this);
+      };
 
       body.classList.add('nav-open');
       this.mobile_menu_visible = 1;
@@ -118,7 +143,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getTitle() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
+    let titlee = this.location.prepareExternalUrl(this.location.path());
     if (titlee.charAt(0) === '#') {
       titlee = titlee.slice(1);
     }
@@ -143,5 +168,4 @@ export class NavbarComponent implements OnInit {
       );
     }
   }
-
 }

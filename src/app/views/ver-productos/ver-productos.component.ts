@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'app/services/product.service';
-import Swal from "sweetalert2";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ver-productos',
@@ -8,62 +8,41 @@ import Swal from "sweetalert2";
   styleUrls: ['./ver-productos.component.css']
 })
 export class VerProductosComponent implements OnInit {
-
-  productos = []; // Variable para almacenar los productos
-  id_categoria: number = 1; // Cambia esto según la categoría seleccionada
+  categoriaId!: number; // ID de la categoría capturada desde la URL
+  productos: any[] = []; // Lista de productos de la categoría
 
   constructor(
-    private serviceImages: ProductService
-  ) { }
+    private serviceImages: ProductService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.cargarProductos("1");
+    // Capturar el id de la categoría desde la URL (con el nombre 'id_categoria')
+    this.categoriaId = +this.route.snapshot.paramMap.get('id_categoria')!;
+    console.log('ID de la categoría:', this.categoriaId);
 
+    // Cargar los productos de la categoría
+    this.cargarProductos(this.categoriaId);
   }
 
-  cargarProductos(idCategoria): void {
+  cargarProductos(idCategoria: number): void {
     this.serviceImages.listarProductosPorCategoria(idCategoria).subscribe(
       (response) => {
-        console.log("Respuesta de la API:", response); // Confirmar estructura
+        console.log('Respuesta de la API:', response); // Verifica la estructura de la respuesta
         if (Array.isArray(response)) {
-          this.productos = response.map((producto) => {
-            if (producto.url_imagen) {
-              producto.imagen = producto.url_imagen;
-            }
-            return producto;
-          });
+          // Mapear y procesar los productos si es necesario
+          this.productos = response.map((producto) => ({
+            ...producto,
+            imagen: producto.url_imagen || 'ruta/por/defecto.png' // Si no hay imagen, asigna una por defecto
+          }));
         } else {
-          console.error("Formato inesperado de respuesta:", response);
+          console.error('Formato inesperado de respuesta:', response);
         }
-  
-        console.log("Productos procesados:", this.productos);
+        console.log('Productos procesados:', this.productos);
       },
       (error) => {
-        console.error("Error al obtener los productos:", error);
+        console.error('Error al obtener los productos:', error);
       }
     );
   }
-  
-  
-
-
-           // Función para convertir la imagen en base64 a un Blob si es necesario
-  dataURLtoBlob(dataURL: string): Blob {
-    const parts = dataURL.split(",");
-    if (parts.length !== 2) {
-      throw new Error("El Data URL está mal formado.");
-    }
-
-    const base64Data = parts[1];
-    const byteString = atob(base64Data);
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const uintArray = new Uint8Array(arrayBuffer);
-
-    for (let i = 0; i < byteString.length; i++) {
-      uintArray[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([uintArray], { type: "image/*" });
-  }
-   
 }

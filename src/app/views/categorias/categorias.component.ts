@@ -30,58 +30,57 @@ export class CategoriasComponent implements OnInit {
 
   // Método para crear una nueva categoría
   crearCategoria(): void {
-    if (this.categoriaForm.invalid) {
-      this.categoriaForm.markAllAsTouched();
-      return;
-    }
-
-    const categoriaData = {
-      
-      categoria: this.categoriaForm.get("categoria")?.value,
-    };
-
-    const formData = new FormData();
-    if (this.archivos.length > 0) {
-      formData.append("logo_categoria", this.archivos[0]);
-    }
-
-    Object.keys(this.categoriaForm.controls).forEach((key) => {
-      const controlValue = this.categoriaForm.get(key)?.value;
-      console.log(key, controlValue); // Verifica que no esté siendo undefined
-      if (controlValue === undefined || controlValue === "") {
-        formData.append(key, null);
-      } else {
-        formData.append(key, controlValue); // Si el valor es undefined, agregar null
+      if (this.categoriaForm.invalid) {
+        this.categoriaForm.markAllAsTouched();
+        return;
       }
-    });
-    
-
-    this.categoriaService.crearCategorias(categoriaData).subscribe({
-      next: () => {
-        Swal.fire("Éxito", "Categoría creada correctamente", "success");
-        this.listarCategorias();
-        this.categoriaForm.reset();
-        this.archivos = [];
-        this.previsualizacion = "";
-      },
-      error: () => Swal.fire("Error", "No se pudo crear la categoría", "error"),
-    });
-  }
+  
+      const formData = new FormData();
+      if (this.archivos.length > 0) {
+        formData.append("logo_categoria", this.archivos[0]);
+      }
+  
+      Object.keys(this.categoriaForm.controls).forEach((key) => {
+        const controlValue = this.categoriaForm.get(key)?.value;
+        console.log(key, controlValue); // Verifica que no esté siendo undefined
+        if (controlValue === undefined || controlValue === "") {
+          formData.append(key, null);
+        } else {
+          formData.append(key, controlValue); // Si el valor es undefined, agregar null
+        }
+      });
+      this.categoriaService.crearCategorias(formData).subscribe({
+        next: () => {
+          Swal.fire("Éxito", "Marca creada correctamente", "success");
+          this.listarCategorias();
+          this.categoriaForm.reset();
+          this.archivos = [];
+          this.previsualizacion = "";
+        },
+        error: () => Swal.fire("Error", "No se pudo crear la Marca", "error"),
+      });
+    }
+  
 
   // Método para listar todas las categorías
+  
   listarCategorias(): void {
     this.categoriaService.listarCategorias().subscribe(
       (response) => {
-        this.categorias = response.data.map((categoria) => ({
-          ...categoria,
-          editando: false, // Asegúrate de que cada categoría tenga la propiedad 'editando'
-        }));
+        this.categorias = response.data.map((categoria) => {
+          if (categoria.logo_categoria) {
+            categoria.imagen = categoria.logo_categoria;
+          }
+          return categoria;
+        });
+        console.log("Categorias:", this.categorias);
       },
       (error) => {
-        console.log("ERROR al listar las categorías", error);
+        console.error("Error al obtener Productos", error);
       }
     );
   }
+
 
   // Método para editar la categoría
   editarCategoria(index: number): void {

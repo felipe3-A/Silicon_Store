@@ -10,6 +10,7 @@ import { PublicidadServiceService } from "app/services/Publicidad/publicidad-ser
 import { MarcasServiceService } from "app/services/Marcas/marcas-service.service";
 import { response } from "express";
 import { CategoriaServiceService } from "app/services/Categoria/categoria-service.service";
+import { GrupoServiceService } from "app/services/Grupo/grupo-service.service";
 
 @Component({
   selector: "main",
@@ -23,16 +24,19 @@ export class MainComponent implements OnInit {
   ofertas = []
   descuentos = [];
   promociones =[];
+  listCategorias = []
   categoriasForm = [];
+  grupos =[]
 
   //Aqui se guardaran los productos
   carrito: any[] = [];
 
   productoForm: FormGroup;
-  
+  cart =[]
   ProductoData = {
     nombre_producto: "",
     descripcion_producto: "",
+   
     precio_producto: "",
     imagen: null, // Cambiar de string a null
   };
@@ -86,6 +90,7 @@ export class MainComponent implements OnInit {
     private cartsService: CartServiceService,
     private publicidadService: PublicidadServiceService,
     private marcaService: MarcasServiceService,
+    private grupoService: GrupoServiceService,
     private serviceCategoria: CategoriaServiceService
   ) {}
 
@@ -103,7 +108,37 @@ export class MainComponent implements OnInit {
     this.obtenerIamgenesOfertas("2")
     this.obtenerImagenesDescuentos("3")
     this.listarMarcas();
+    this.obtenerCategorias();
+    this.listarGrupos();
+    
   }
+
+  // Método para navegar a la categoría específica
+// Método para navegar a las categorías del grupo
+navigateToCategoryforGroups(id_grupo: number[]): void {
+  console.log('Navegando a el grupo con IDs:', id_grupo);
+  this.router.navigate(['/groups', id_grupo]); // Pasar las categorías como un objeto
+}
+  listarGrupos(): void {
+    this.grupoService.listarGrupos().subscribe(
+      (response) => {
+        this.grupos = response.data.map((grupo) => {
+          if (grupo.icono_grupo) {
+            grupo.imagen = grupo.icono_grupo;
+          }
+          // Asegúrate de que 'categorias' sea un array
+          if (!Array.isArray(grupo.categorias)) {
+            grupo.categorias = [grupo.categorias]; // Convierte a array si no lo es
+          }
+          return grupo;
+        });
+        console.log("Grupos:", this.grupos);
+      },
+      (error) => {
+        console.error("Error al obtener los Grupos", error);
+      }
+    );
+}
 
   obtenerImagenesDescuentos(idTipo):void{
     this.publicidadService.listarImagenesPorTipo(idTipo).subscribe(
@@ -124,6 +159,41 @@ export class MainComponent implements OnInit {
       }
     );
   }
+
+    // Método para navegar a la categoría específica
+    navigateToCategory(id_categoria: number): void {
+      console.log('Navegando a la categoría con ID:', id_categoria);
+      this.router.navigate(['/products', id_categoria]);
+    }
+
+      // Método para navegar a la categoría específica
+      navigateToCategoryandProduct(id_imagen: number): void {
+        console.log('Navegando el producto con ID:', id_imagen);
+        this.router.navigate(['/product', id_imagen]);
+      }
+      
+    
+
+  obtenerCategorias():void{
+    this.serviceCategoria.listarCategorias().subscribe(
+      (response) => {
+        this.listCategorias = response.data.map((listcategorias) => {
+          if (listcategorias.logo_categoria) {
+            listcategorias.imagen = listcategorias.logo_categoria;
+          }
+
+          return listcategorias;
+        });
+
+        console.log("Categorias:", this.listCategorias);
+      },
+      (error) => {
+        Swal.fire("Error", "No se pudieron obtener las imágenes", "error");
+        console.error("Error al obtener las imágenes por tipo:", error);
+      }
+    );
+  }
+
   obtenerIamgenesOfertas(idTipo):void{
     this.publicidadService.listarImagenesPorTipo(idTipo).subscribe(
       (response) => {
@@ -166,9 +236,9 @@ export class MainComponent implements OnInit {
 
 
 
-
   agregarAlCarrito(producto: any): void {
     this.cartsService.agregarProducto(producto);
+    this.cart = this.cartsService.obtenerCarrito(); // Actualiza el carrito
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -185,7 +255,6 @@ export class MainComponent implements OnInit {
       title: "Producto agregado al carrito",
     });
   }
-
   verMasInformacion(producto: any): void {
     console.log("Ver más información de:", producto);
     // Lógica para redirigir a una página de detalles del producto o mostrar más información

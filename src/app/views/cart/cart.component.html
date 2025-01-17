@@ -11,8 +11,8 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{ producto.nombre }}</h5>
-              <p class="card-text">{{ producto.descripcion }}</p>
+              <h5 class="card-title">{{ producto.nombre_producto }}</h5>
+              <p class="card-text">{{ producto.descripcion_producto }}</p>
               <p class="card-text"><strong>Precio: {{ producto.precio | currency }}</strong></p>
               <button class="btn btn-danger" (click)="eliminarProductoC(producto)">Eliminar</button> <!-- Botón de eliminar -->
             </div>
@@ -28,9 +28,10 @@
           <h5 class="card-title">Resumen del Carrito</h5>
           <ul class="list-group mb-3">
             <!-- Mostrar cada producto seleccionado con su precio -->
-            <li *ngFor="let producto of carrito" class="list-group-item d-flex justify-content-between align-items-center">
-              <span>{{ producto.nombre }}</span>
-              <span>{{ producto.precio | currency }}</span>
+            <li *ngFor ```html
+="let producto of carrito" class="list-group-item d-flex justify-content-between align-items-center">
+              <span>{{ producto.nombre_producto }}</span>
+              <span>{{ producto.precio_producto | currency }}</span>
             </li>
           </ul>
           <!-- Total del carrito -->
@@ -39,8 +40,8 @@
             <span><strong>{{ calcularTotal() | currency }}</strong></span>
           </div>
           <!-- Botón de compra, visible solo si el carrito no está vacío -->
-          <button *ngIf="carrito.length > 0" class="btn btn-warning w-100 text-white" routerLink="/buyProduct">
-            <i class="bi bi-cart-check"></i> Comprar
+          <button *ngIf="carrito.length > 0" class="btn btn-warning w-100 text-white" (click)="iniciarPago()">
+            Iniciar Pago
           </button>
           <p *ngIf="carrito.length === 0" class="text-center mt-3">Tu carrito está vacío.</p>
         </div>
@@ -48,3 +49,5 @@
     </div>
   </div>
 </div>
+
+<!-- Script de la pasarela de pagos -->

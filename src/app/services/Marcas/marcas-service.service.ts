@@ -19,4 +19,9 @@ export class MarcasServiceService {
     return this.http.post(`${this.baseUrl}/api/marca/upload_marca`, formData); // Asegúrate de que esta URL sea la correcta
   }
 
+     // Nuevo método para obtener la galería por ID
+     obtenerMarcaPorId(id_marca: number): Observable<any> {
+      return this.http.get<any>(`${this.baseUrl}/api/marca/upload_marca/${id_marca}`);
+    }
+
 }

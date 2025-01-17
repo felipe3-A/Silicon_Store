@@ -32,6 +32,9 @@ import { CategoriasComponent } from './views/categorias/categorias.component';
 import { PublicidadComponent } from './views/publicidad/publicidad.component';
 import { VerProductosComponent } from './views/ver-productos/ver-productos.component';
 import { TipoProductoComponent } from './views/tipo-producto/tipo-producto.component';
+import { UnidadProductoComponent } from './views/unidad-producto/unidad-producto.component';
+import { GruposGeneralesComponent } from './views/grupos-generales/grupos-generales.component';
+import { ProductosGruposComponent } from './views/productos-grupos/productos-grupos.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -81,6 +84,9 @@ export function tokenGetter() {
     PublicidadComponent,
     VerProductosComponent,
     TipoProductoComponent,
+    UnidadProductoComponent,
+    GruposGeneralesComponent,
+    ProductosGruposComponent,
     
 
   ],

@@ -13,6 +13,8 @@ export class MarcasComponent implements OnInit {
   archivos: any[] = [];
   MarcaForm: FormGroup;
   previsualizacion: string = "";
+  marcaSeleccionada: any; // Propiedad para almacenar los detalles de la marca seleccionada
+
 
   constructor(
     private serviceMarcas: MarcasServiceService,

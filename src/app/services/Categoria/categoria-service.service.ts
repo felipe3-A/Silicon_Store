@@ -12,13 +12,14 @@ export class CategoriaServiceService {
 
   // Método para listar todas las categorías
   listarCategorias(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/categoria_upload`);
+    return this.http.get(`${this.baseUrl}/api/categoria/categoria_upload`);
   }
 
   // Método para crear una nueva categoría
-  crearCategorias(categoria: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/categoria_upload`, categoria);
+  crearCategorias(formdata: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/categoria/categoria_upload`,formdata);
   }
+  
 
   // Método para editar una categoría
   editarCategoria(id_categoria: number, categoriaData: any): Observable<any> {

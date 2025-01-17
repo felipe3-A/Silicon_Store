@@ -4,6 +4,19 @@
   color: #04B2D9;
   font-weight: 800;
 }
+.bold-button {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
 
 .card_title_2 {
   font-family: 'Poppins', sans-serif;
@@ -236,13 +249,15 @@
 }
 
 .columna1, .columna2 {
-  width: 50%;
+  width: 40%;
   padding: 10px;
 }
 
 .columna3 {
-  width: 50vh;
+  width: 20%;
   padding: 10px;
+  z-index: 10;
+
 }
 
 .ofert_image, .descuento_1, .descuento_2 {
@@ -322,8 +337,7 @@
 
 .card-container {
   overflow: hidden;
-  height: 500px;
-  background-color: violet;
+  height: 600px;
   width: 900px;
   position: static;
 }
@@ -334,9 +348,35 @@
 
 @keyframes moveUp {
   0% {
-    transform: translateY(100%);
+    transform: translateY(150%);
   }
   100% {
     transform: translateY(-100%);
   }
+}
+
+.content_list_category {
+  margin: 10px; /* Espaciado externo entre tarjetas */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ddd; /* (Opcional) Borde para distinguir las tarjetas */
+  border-radius: 5px; /* (Opcional) Bordes redondeados */
+  background-color: #f9f9f9; /* (Opcional) Fondo suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* x-offset, y-offset, difuso, color */
+
+}
+
+/* Efecto al pasar el mouse */
+.content_list_category:hover {
+  transform: translateX(-10px); /* Mover la tarjeta ligeramente a la izquierda */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Aumentar la sombra para un efecto más pronunciado */
+  cursor: pointer;
+}
+
+.service-icon {
+  margin-bottom: 10px; /* Espacio entre el ícono y el texto */
+}
+
+.card-body {
+  display: inline-block; /* Asegura que las tarjetas se alineen horizontalmente */
+  text-align: center;
 }

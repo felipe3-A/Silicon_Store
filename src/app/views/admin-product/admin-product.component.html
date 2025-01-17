@@ -1,13 +1,40 @@
+<div *ngIf="loading" class="loading-overlay">
+  <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+
 <div class="container my-5">
+
+  <div *ngIf="step === 1">
+    <form [formGroup]="productoStep1Form">
+      <label>Nombre del Producto:</label>
+      <input formControlName="nombre_producto" type="text" required />
+      <label>Subir Imágenes:</label>
+      <input type="file" (change)="capturarGaleria($event)" multiple />
+      <div *ngIf="archivos.length">
+        <p>Previsualización:</p>
+        <div *ngFor="let archivo of archivos">
+          <img [src]="archivo.url" alt="Imagen del Producto" width="100" />
+        </div>
+      </div>
+      <button type="button" (click)="siguientePaso()">Siguiente</button>
+    </form>
+  </div>
+  
+
+
   <!-- Formulario para crear producto -->
   <fieldset class="p-4 shadow-sm rounded bg-light">
     <legend class="text-primary mb-3">Crear Producto</legend>
-    <form [formGroup]="productoForm" (ngSubmit)="crearProducto()" class="row g-4">
+    <form [formGroup]="productoStep1Form" (ngSubmit)="crearGaleria()" class="row g-4">
       <!-- Referencia -->
       <div class="col-md-3">
         <label for="referencia" class="form-label">Referencia</label>
         <input id="referencia" class="form-control" formControlName="referencia_producto" placeholder="Ej: REF001" />
-        <div *ngIf="productoForm.get('referencia')?.invalid && productoForm.get('referencia')?.touched" class="text-danger">
+        <div *ngIf="productoStep1Form.get('referencia')?.invalid && productoStep1Form.get('referencia')?.touched"
+          class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
@@ -16,7 +43,7 @@
       <div class="col-md-3">
         <label for="envio" class="form-label">Envío</label>
         <input id="envio" class="form-control" formControlName="envio_producto" placeholder="Ej: Nacional" />
-        <div *ngIf="productoForm.get('envio')?.invalid && productoForm.get('envio')?.touched" class="text-danger">
+        <div *ngIf="productoStep1Form.get('envio')?.invalid && productoStep1Form.get('envio')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
@@ -25,41 +52,55 @@
       <div class="col-md-3">
         <label for="garantia" class="form-label">Tiempo de Garantía</label>
         <input id="garantia" class="form-control" formControlName="garantia_producto" placeholder="Ej: 12 meses" />
-        <div *ngIf="productoForm.get('garantia')?.invalid && productoForm.get('garantia')?.touched" class="text-danger">
+        <div *ngIf="productoStep1Form.get('garantia')?.invalid && productoStep1Form.get('garantia')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
 
-        <!-- Categoría -->
-        <div class="col-md-3">
-          <label for="id_categoria" class="form-label">Categoría</label>
-          <select id="id_categoria" class="form-control" formControlName="id_categoria">
-            <option value="" disabled selected>Seleccione una categoría</option>
-            <option *ngFor="let categoria of categoriasForm"[value]="categoria.id_categoria">
-              {{categoria.categoria}}
-            </option>
-    
-          </select>
-          <div *ngIf="productoForm.get('id_categoria')?.invalid && productoForm.get('id_categoria')?.touched" class="text-danger">
-            Este campo es obligatorio
-          </div>
+      
+      <!-- Categoría -->
+      <div class="col-md-3">
+        <label for="id_grupo" class="form-label">Enlazar a Grupo</label>
+        <select id="id_grupo" class="form-control" formControlName="id_grupo">
+          <option value="" disabled selected>Seleccione una Grupo</option>
+          <option *ngFor="let grupo of gruposForm" [value]="grupo.id_grupo">
+            {{grupo.nombre_grupo}}
+          </option>
+
+        </select>
+        <div *ngIf="productoStep1Form.get('id_grupo')?.invalid && productoStep1Form.get('id_grupo')?.touched"
+          class="text-danger">
+          Este campo es obligatorio
         </div>
+      </div>
+
+      <!-- Categoría -->
+      <div class="col-md-3">
+        <label for="id_categoria" class="form-label">Categoría</label>
+        <select id="id_categoria" class="form-control" formControlName="id_categoria">
+          <option value="" disabled selected>Seleccione una categoría</option>
+          <option *ngFor="let categoria of categoriasForm" [value]="categoria.id_categoria">
+            {{categoria.categoria}}
+          </option>
+
+        </select>
+        <div *ngIf="productoStep2Form.get('id_categoria')?.invalid && productoStep2Form.get('id_categoria')?.touched"
+          class="text-danger">
+          Este campo es obligatorio
+        </div>
+      </div>
 
       <!-- Marca -->
       <div class="col-md-3">
         <label for="id_marca" class="form-label">Seleccione la marca</label>
-        <select
-        id="id_marca"
-        class="form-control"
-        formControlName="id_marca"
-      >
-        <option value="" disabled selected>Seleccione una marca</option>
-        <option *ngFor="let marca of marcasForm" [value]="marca.id_marca">
-          {{ marca.marca }}
-        </option>
-      </select>
+        <select id="id_marca" class="form-control" formControlName="id_marca">
+          <option value="" disabled selected>Seleccione una marca</option>
+          <option *ngFor="let marca of marcasForm" [value]="marca.id_marca">
+            {{ marca.marca }}
+          </option>
+        </select>
 
-        <div *ngIf="productoForm.get('id_marca')?.invalid && productoForm.get('id_marca')?.touched" class="text-danger">
+        <div *ngIf="productoStep2Form.get('id_marca')?.invalid && productoStep2Form.get('id_marca')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
@@ -67,8 +108,9 @@
       <!-- Cantidad -->
       <div class="col-md-3">
         <label for="cantidad" class="form-label">Cantidad</label>
-        <input id="cantidad" class="form-control" type="number" formControlName="cantidad_producto" placeholder="Ej: 10" />
-        <div *ngIf="productoForm.get('cantidad')?.invalid && productoForm.get('cantidad')?.touched" class="text-danger">
+        <input id="cantidad" class="form-control" type="number" formControlName="cantidad_producto"
+          placeholder="Ej: 10" />
+        <div *ngIf="productoStep2Form.get('cantidad')?.invalid && productoStep2Form.get('cantidad')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
@@ -77,7 +119,7 @@
       <div class="col-md-3">
         <label for="nombre" class="form-label">Nombre del producto</label>
         <input id="nombre" class="form-control" formControlName="nombre_producto" placeholder="Ej: Televisor 4K" />
-        <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="text-danger">
+        <div *ngIf="productoStep2Form.get('nombre')?.invalid && productoStep2Form.get('nombre')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
@@ -87,40 +129,60 @@
         <label for="descripcion" class="form-label">Descripción</label>
         <textarea id="descripcion" class="form-control" formControlName="descripcion_producto"
           placeholder="Descripción del producto"></textarea>
-        <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched" class="text-danger">
+        <div *ngIf="productoStep2Form.get('descripcion')?.invalid && productoStep2Form.get('descripcion')?.touched"
+          class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
 
-    
+
 
       <!-- Precio -->
       <div class="col-md-3">
         <label for="precio" class="form-label">Precio</label>
         <input id="precio" class="form-control" formControlName="precio_producto" type="number" step="0.01"
           placeholder="Ej: 1500.00" />
-        <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="text-danger">
+        <div *ngIf="productoStep2Form.get('precio')?.invalid && productoStep2Form.get('precio')?.touched" class="text-danger">
           Este campo es obligatorio
         </div>
       </div>
 
-         <!-- Imagen -->
-         <div class="col-md-6">
-          <label for="imagen" class="form-label">Imagen</label>
-          <input id="imagen" (change)="capturarFile($event)" name="image" class="form-control" formControlName="url_imagen" type="file" />
-          <div *ngIf="productoForm.get('imagen')?.invalid && productoForm.get('imagen')?.touched" class="text-danger">
-            Este campo es obligatorio
-          </div>
-          <div class="mt-3" *ngIf="previsualizacion">
-            <p>Previsualización:</p>
-            <img [src]="previsualizacion" class="img-thumbnail" alt="Previsualización" style="max-height: 200px;" />
+      <!-- Imagen -->
+      <div class="col-md-6">
+        <label for="imagen" class="form-label">Imagen Principal</label>
+        <input id="imagen" (change)="capturarFile($event)" name="image" class="form-control"
+          formControlName="url_imagen" type="file" />
+        <div *ngIf="productoStep2Form.get('url_imagen')?.invalid && productoStep2Form.get('url_imagen')?.touched"
+          class="text-danger">
+          Este campo es obligatorio
+        </div>
+        <div class="mt-3" *ngIf="previsualizacion">
+          <p>Previsualización:</p>
+          <img [src]="previsualizacion" class="img-thumbnail" alt="Previsualización" style="max-height: 200px;" />
+        </div>
+      </div>
+
+      <!-- Galería de imágenes -->
+      <div class="col-md-6">
+        <label for="galeria" class="form-label">Imágenes de la Galería (Máximo 5)</label>
+        <input id="galeria" (change)="capturarGaleria($event)" name="galeria" class="form-control" type="file" multiple />
+        <div *ngIf="archivos.length > 5" class="text-danger">
+          Solo se permiten hasta 5 imágenes.
+        </div>
+        <div class="mt-3">
+          <p>Previsualización de la Galería:</p>
+          <div *ngFor="let archivo of archivos">
+            <img [src]="archivo.url" class="img-thumbnail" alt="Previsualización de la galería" style="max-height: 100px; margin-right: 5px;" />
           </div>
         </div>
+      </div>
 
       <!-- Botón Crear -->
       <div class="col-md-12 d-grid">
-        <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">Crear Producto</button>
+        <button type="submit" class="btn btn-primary" [disabled]="productoStep2Form.invalid">Crear Producto</button>
       </div>
+
+      
     </form>
   </fieldset>
 
@@ -184,3 +246,5 @@
         (actualizarProducto)="actualizarproducto()"></edit-product>
     </div>
   </div> -->
+
+ 
